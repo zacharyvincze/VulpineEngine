@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 
+#include "EngineConfig.h"
 #include "VersionConfig.h"
 #include "Vulpine/Core/Logger.h"
 #include "Vulpine/Renderer/Renderer.h"
@@ -12,10 +13,10 @@ Engine::Engine() {
     Logger::Init();
     VP_CORE_INFO("Starting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 
-    Window window = Window("VulpineEngine", SDL_WINDOWPOS_UNDEFINED,
-                           SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_SHOWN);
-    Renderer renderer =
-        Renderer(window, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+    EngineConfig config("data/config/vulpine.json");
+
+    Window window = Window(config.GetWindowConfig());
+    Renderer renderer = Renderer(window, config.GetRenderConfig());
 
     bool running = true;
     SDL_Event event;

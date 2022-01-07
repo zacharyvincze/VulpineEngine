@@ -2,13 +2,13 @@
 
 #include <SDL2/SDL.h>
 
-#include <string>
+#include "EngineConfig.h"
+#include "Vulpine/vppch.h"
 
 namespace Vulpine {
 class Window {
    public:
-    Window(const std::string& title, int x, int y, int w, int h,
-           uint32_t flags);
+    Window(WindowConfig config);
     ~Window();
     inline SDL_Window* GetSDLWindow() { return m_Window; }
 

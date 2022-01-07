@@ -2,12 +2,13 @@
 
 #include <SDL2/SDL.h>
 
+#include "Vulpine/Core/EngineConfig.h"
 #include "Vulpine/Core/Window.h"
 
 namespace Vulpine {
 class Renderer {
    public:
-    Renderer(Window& window, uint32_t flags);
+    Renderer(Window& window, RenderConfig config);
     ~Renderer();
     SDL_Renderer* GetSDLRenderer() { return m_Renderer; }
 
