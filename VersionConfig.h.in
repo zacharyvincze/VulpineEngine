@@ -1,0 +1,3 @@
+#pragma once
+
+#define VULPINE_ENGINE_VERSION "@CMAKE_PROJECT_VERSION@"
