@@ -7,7 +7,7 @@
 namespace Vulpine {
 std::shared_ptr<spdlog::logger> Logger::s_coreLogger;
 
-void Logger::init() {
+void Logger::Init() {
     auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
     console_sink->set_level(spdlog::level::trace);
 

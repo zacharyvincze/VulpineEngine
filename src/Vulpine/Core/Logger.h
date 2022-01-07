@@ -7,10 +7,15 @@
 #include <spdlog/spdlog.h>
 
 namespace Vulpine {
+
+/**
+ * @brief Responsible for logging engine messages at varying levels.
+ *
+ */
 class Logger {
    public:
-    static void init();
-    static std::shared_ptr<spdlog::logger> getCoreLogger() {
+    static void Init();
+    static std::shared_ptr<spdlog::logger> GetCoreLogger() {
         return s_coreLogger;
     }
 
@@ -19,9 +24,9 @@ class Logger {
 };
 }  // namespace Vulpine
 
-#define VP_CORE_TRACE(...) Vulpine::Logger::getCoreLogger()->trace(__VA_ARGS__)
-#define VP_CORE_INFO(...) Vulpine::Logger::getCoreLogger()->info(__VA_ARGS__)
-#define VP_CORE_WARN(...) Vulpine::Logger::getCoreLogger()->warn(__VA_ARGS__)
-#define VP_CORE_ERROR(...) Vulpine::Logger::getCoreLogger()->error(__VA_ARGS__)
+#define VP_CORE_TRACE(...) Vulpine::Logger::GetCoreLogger()->trace(__VA_ARGS__)
+#define VP_CORE_INFO(...) Vulpine::Logger::GetCoreLogger()->info(__VA_ARGS__)
+#define VP_CORE_WARN(...) Vulpine::Logger::GetCoreLogger()->warn(__VA_ARGS__)
+#define VP_CORE_ERROR(...) Vulpine::Logger::GetCoreLogger()->error(__VA_ARGS__)
 #define VP_CORE_CRITICAL(...) \
-    Vulpine::Logger::getCoreLogger()->critical(__VA_ARGS__)
+    Vulpine::Logger::GetCoreLogger()->critical(__VA_ARGS__)

@@ -4,8 +4,7 @@
 #include "Vulpine/Core/Logger.h"
 
 int main(int argc, char** argv) {
-    Vulpine::Logger::init();
-
+    // Initialize VulpineEngine
     Vulpine::Engine* engine = new Vulpine::Engine();
     delete engine;
     return 0;
