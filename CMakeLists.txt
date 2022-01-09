@@ -5,10 +5,11 @@ project(vulpine-engine VERSION 0.0.1)
 configure_file(VersionConfig.h.in ${CMAKE_BINARY_DIR}/generated/VersionConfig.h)
 include_directories(${CMAKE_BINARY_DIR}/generated/)
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_STANDARD 17)
 
 file(GLOB_RECURSE SRC
     "src/*.cpp"
- )
+)
 
 include(FindPkgConfig)
 

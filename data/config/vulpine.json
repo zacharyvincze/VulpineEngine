@@ -1,20 +1,22 @@
 {
     "renderer": {
-        "width": 640,
-        "height": 480,
+        "width": 320,
+        "height": 240,
         "options": {
             "accelerated": true,
-            "vertical-sync": true
+            "vertical-sync": true,
+            "scale_quality": "0"
         }
     },
     "window": {
         "title": "VulpineEngine",
-        "width": 640,
-        "height": 480,
+        "width": 320,
+        "height": 240,
         "x": 0,
         "y": 0,
         "options": {
-            "fullscreen": false 
+            "fullscreen": true,
+            "show_cursor": true
         }
     }
 }

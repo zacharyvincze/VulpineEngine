@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 
 #include <algorithm>
@@ -13,4 +15,6 @@
 #include <utility>
 #include <vector>
 
+#include "Vulpine/Core/Logger.h"
+#include "entt/entt.hpp"
 #include "nlohmann/json.hpp"

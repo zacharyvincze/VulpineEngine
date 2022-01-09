@@ -5,6 +5,8 @@ Renderer::Renderer(Window& window, RenderConfig config) {
     m_Renderer = SDL_CreateRenderer(window.GetSDLWindow(), -1, config.flags);
     SDL_RenderSetLogicalSize(m_Renderer, config.logical_width,
                              config.logical_height);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,
+                config.render_scale_quality.c_str());
 }
 
 Renderer::~Renderer() { SDL_DestroyRenderer(m_Renderer); }

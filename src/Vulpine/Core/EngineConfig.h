@@ -5,14 +5,20 @@
 namespace Vulpine {
 
 struct RenderConfig {
-    int logical_width, logical_height;
-    uint32_t flags;
+    int logical_width = 640;
+    int logical_height = 480;
+    uint32_t flags = SDL_RENDERER_SOFTWARE;
+    std::string render_scale_quality = "1";
 };
 
 struct WindowConfig {
-    std::string title;
-    int x, y, w, h;
-    uint32_t flags;
+    std::string title = "VulpineEngine";
+    int x = 0;
+    int y = 0;
+    int w = 640;
+    int h = 480;
+    uint32_t flags = SDL_WINDOW_SHOWN;
+    bool show_cursor = true;
 };
 
 /**
@@ -30,9 +36,6 @@ class EngineConfig {
    private:
     void ParseRenderConfig(nlohmann::json& render_json);
     void ParseWindowConfig(nlohmann::json& window_json);
-
-    void SetRenderConfigDefaults();
-    void SetWindowConfigDefaults();
 
     RenderConfig m_RenderConfig;
     WindowConfig m_WindowConfig;

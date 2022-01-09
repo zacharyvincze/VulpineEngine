@@ -15,8 +15,6 @@ EngineConfig::EngineConfig(const std::string& filepath) {
         VP_CORE_WARN(
             "Unable to open engine configuration file {}, using defaults",
             filepath);
-        SetWindowConfigDefaults();
-        SetRenderConfigDefaults();
         return;
     }
 
@@ -32,7 +30,6 @@ EngineConfig::EngineConfig(const std::string& filepath) {
 void EngineConfig::ParseRenderConfig(nlohmann::json& json) {
     if (json.is_null()) {
         VP_CORE_WARN("Unable to read render config, using defaults");
-        SetRenderConfigDefaults();
         return;
     }
 
@@ -44,12 +41,13 @@ void EngineConfig::ParseRenderConfig(nlohmann::json& json) {
         m_RenderConfig.flags |= SDL_RENDERER_ACCELERATED;
     if (json["options"]["vertical-sync"].get<bool>())
         m_RenderConfig.flags |= SDL_RENDERER_PRESENTVSYNC;
+    m_RenderConfig.render_scale_quality =
+        json["options"]["scale_quality"].get<std::string>();
 }
 
 void EngineConfig::ParseWindowConfig(nlohmann::json& json) {
     if (json.is_null()) {
         VP_CORE_WARN("Unable to read window config, using defaults");
-        SetWindowConfigDefaults();
         return;
     }
 
@@ -66,14 +64,8 @@ void EngineConfig::ParseWindowConfig(nlohmann::json& json) {
     } else {
         m_WindowConfig.flags |= SDL_WINDOW_SHOWN;
     }
-}
 
-void EngineConfig::SetRenderConfigDefaults() {
-    m_RenderConfig = {640, 480, SDL_RENDERER_SOFTWARE};
-}
-
-void EngineConfig::SetWindowConfigDefaults() {
-    m_WindowConfig = {"VulpineEngine", 0, 0, 640, 480, SDL_WINDOW_SHOWN};
+    m_WindowConfig.show_cursor = json["options"]["show_cursor"].get<bool>();
 }
 
 EngineConfig::~EngineConfig() {}

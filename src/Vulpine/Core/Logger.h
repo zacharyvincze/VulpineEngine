@@ -28,5 +28,6 @@ class Logger {
 #define VP_CORE_INFO(...) Vulpine::Logger::GetCoreLogger()->info(__VA_ARGS__)
 #define VP_CORE_WARN(...) Vulpine::Logger::GetCoreLogger()->warn(__VA_ARGS__)
 #define VP_CORE_ERROR(...) Vulpine::Logger::GetCoreLogger()->error(__VA_ARGS__)
+#define VP_CORE_DEBUG(...) Vulpine::Logger::GetCoreLogger()->debug(__VA_ARGS__)
 #define VP_CORE_CRITICAL(...) \
     Vulpine::Logger::GetCoreLogger()->critical(__VA_ARGS__)
