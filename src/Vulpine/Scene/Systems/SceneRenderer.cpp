@@ -12,15 +12,14 @@ namespace Vulpine {
  * @param renderer The SDL renderer context to use for rendering
  * @param textures The texture manager containing any required textures
  */
-void SceneRenderer::Render(entt::registry& registry, SDL_Renderer* renderer,
+void SceneRenderer::Render(entt::registry& registry, Renderer& renderer,
                            TextureManager& textures) {
     auto view = registry.view<SpriteRenderer, Transform>();
     for (auto entity : view) {
         Transform& trans = view.get<Transform>(entity);
         SpriteRenderer& sprite_renderer = view.get<SpriteRenderer>(entity);
-        SDL_RenderCopy(renderer,
-                       textures.GetTexture(sprite_renderer.texture_path),
-                       &sprite_renderer.source_rect, &trans.position);
+        renderer.DrawTexture(textures.GetTexture(sprite_renderer.texture_path),
+                             &sprite_renderer.source_rect, &trans.position);
     }
 }
 }  // namespace Vulpine

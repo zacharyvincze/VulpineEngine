@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vulpine/Managers/TextureManager.h"
+#include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
@@ -11,7 +12,7 @@ namespace Vulpine {
  */
 class SceneRenderer {
    public:
-    void Render(entt::registry& registry, SDL_Renderer* renderer,
+    void Render(entt::registry& registry, Renderer& renderer,
                 TextureManager& textures);
 
    private:

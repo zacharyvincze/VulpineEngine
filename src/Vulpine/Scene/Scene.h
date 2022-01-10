@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
 #include "Vulpine/Scene/Systems/TextureLoader.h"
 #include "Vulpine/vppch.h"
@@ -13,7 +14,8 @@ namespace Vulpine {
  */
 class Scene {
    public:
-    Scene(const std::string& scene_id, SDL_Renderer* renderer);
+    Scene(const std::string& scene_id, const std::string& scene_file,
+          Renderer& renderer);
     ~Scene();
 
     void Load();
@@ -24,11 +26,12 @@ class Scene {
    private:
     entt::registry m_Registry;
     std::string m_SceneID;
+    std::string m_SceneFilepath;
 
     TextureManager m_TextureManager;
 
     // Renderer context to use for this scene
-    SDL_Renderer* m_Renderer;
+    Renderer& m_Renderer;
 
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;

@@ -23,8 +23,9 @@ Engine::Engine() {
     Window window = Window(config.GetWindowConfig());
     Renderer renderer = Renderer(window, config.GetRenderConfig());
 
-    Scene scene("default", renderer.GetSDLRenderer());
-    scene.Load();
+    m_SceneManager = new SceneManager(renderer);
+    m_SceneManager->CreateScene("default", "data/scenes/default.scene.json");
+    m_SceneManager->SetScene("default");
 
     bool running = true;
     SDL_Event event;
@@ -45,15 +46,15 @@ Engine::Engine() {
 
         SDL_Rect source_rect = {0, 0, 320, 184};
 
-        renderer.SetColor(0, 0xFF, 0, 0);
+        renderer.SetColor(0, 0, 0, 0);
         renderer.Clear();
 
-        scene.RenderScene();
+        m_SceneManager->GetCurrentScene()->RenderScene();
 
         renderer.Present();
     }
 
-    scene.Unload();
+    delete m_SceneManager;
 }
 Engine::~Engine() {
     VP_CORE_INFO("Quitting VulpineEngine {}", VULPINE_ENGINE_VERSION);

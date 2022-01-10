@@ -1,16 +1,16 @@
 #include "Scene.h"
 
+#include "SceneLoader.h"
 #include "Vulpine/Scene/Components/SpriteRenderer.h"
 #include "Vulpine/Scene/Components/Transform.h"
 
 namespace Vulpine {
-Scene::Scene(const std::string& scene_id, SDL_Renderer* renderer)
-    : m_TextureManager(renderer), m_SceneID(scene_id), m_Renderer(renderer) {
-    const auto entity = m_Registry.create();
-    m_Registry.emplace<SpriteRenderer>(entity, "data/sprites/NpcGuest.png",
-                                       SDL_Rect{0, 0, 320, 184});
-    m_Registry.emplace<Transform>(entity, SDL_Rect{0, 0, 320, 184});
-}
+Scene::Scene(const std::string& scene_id, const std::string& scene_file,
+             Renderer& renderer)
+    : m_TextureManager(renderer.GetSDLRenderer()),
+      m_SceneID(scene_id),
+      m_Renderer(renderer),
+      m_SceneFilepath(scene_file) {}
 
 Scene::~Scene() {}
 
@@ -21,6 +21,11 @@ Scene::~Scene() {}
 void Scene::Load() {
     // TODO: Load all of the resources that this scene requires.
     VP_CORE_DEBUG("Loading resources for scene {}", m_SceneID);
+
+    if (SceneLoader::LoadScene(m_Registry, m_SceneFilepath) < 0) {
+        VP_CORE_ERROR("Unable to load scene {}", m_SceneID);
+        exit(EXIT_FAILURE);
+    }
 
     m_TextureLoader.LoadTextures(m_Registry, m_TextureManager);
 }

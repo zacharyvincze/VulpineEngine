@@ -18,4 +18,9 @@ void Renderer::Clear() { SDL_RenderClear(m_Renderer); }
 void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
     SDL_SetRenderDrawColor(m_Renderer, r, g, b, a);
 }
+
+void Renderer::DrawTexture(SDL_Texture* texture, SDL_Rect* source_rect,
+                           SDL_Rect* dest_rect) {
+    SDL_RenderCopy(m_Renderer, texture, source_rect, dest_rect);
+}
 }  // namespace Vulpine
