@@ -33,6 +33,8 @@ class EngineConfig {
     inline RenderConfig GetRenderConfig() { return m_RenderConfig; }
     inline WindowConfig GetWindowConfig() { return m_WindowConfig; }
 
+    int frames_per_second = 0;
+
    private:
     void ParseRenderConfig(nlohmann::json& render_json);
     void ParseWindowConfig(nlohmann::json& window_json);

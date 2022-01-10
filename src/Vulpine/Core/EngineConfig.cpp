@@ -25,6 +25,7 @@ EngineConfig::EngineConfig(const std::string& filepath) {
 
     ParseRenderConfig(in_json["renderer"]);
     ParseWindowConfig(in_json["window"]);
+    frames_per_second = in_json["fps"].get<int>();
 }
 
 void EngineConfig::ParseRenderConfig(nlohmann::json& json) {

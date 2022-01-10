@@ -51,7 +51,7 @@ void TextureManager::UnloadAll() {
 SDL_Texture* TextureManager::GenerateTexture(const std::string& filepath) {
     SDL_Surface* surface = IMG_Load(filepath.c_str());
     if (surface == NULL) {
-        VP_CORE_ERROR("Unable to create surface {}", filepath);
+        VP_CORE_ERROR("Unable to load texture from file {}", filepath);
         exit(EXIT_FAILURE);
         return NULL;
     }

@@ -15,6 +15,10 @@
         {
             "path": "data/sprites/chaco.sprite.json",
             "position": [64, 64, 16, 128]
+        },
+        {
+            "path": "data/sprites/hungry.sprite.json",
+            "position": [72, 72, 16, 16]
         }
     ]
 }

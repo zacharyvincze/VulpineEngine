@@ -29,7 +29,13 @@ Engine::Engine() {
 
     bool running = true;
     SDL_Event event;
+
+    unsigned long time_per_frame = 1000000 / config.frames_per_second;
+    m_Clock.Start();
+
     while (running) {
+        unsigned long start = m_Clock.GetElapsed<std::chrono::microseconds>();
+
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.scancode) {
@@ -52,6 +58,14 @@ Engine::Engine() {
         m_SceneManager->GetCurrentScene()->RenderScene();
 
         renderer.Present();
+
+        // Pause execution for frame capping
+        unsigned long end = m_Clock.GetElapsed<std::chrono::microseconds>();
+        std::this_thread::sleep_for(
+            std::chrono::microseconds(time_per_frame - (end - start)));
+
+        end = m_Clock.GetElapsed<std::chrono::microseconds>();
+        float frames_per_second = 1000000.0f / (end - start);
     }
 
     delete m_SceneManager;
