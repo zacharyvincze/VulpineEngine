@@ -1,7 +1,5 @@
 #include "SceneManager.h"
 
-#include "Scene.h"
-
 namespace Vulpine {
 SceneManager::SceneManager(Renderer& renderer) : m_Renderer(renderer) {
     m_CurrentScene = NULL;

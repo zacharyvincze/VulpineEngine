@@ -1,6 +1,6 @@
 #pragma once
-#include "Scene.h"
 #include "Vulpine/Renderer/Renderer.h"
+#include "Vulpine/Scene/Scene.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {

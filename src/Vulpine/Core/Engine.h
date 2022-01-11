@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Vulpine/Scene/SceneManager.h"
+#include "Vulpine/Managers/SceneManager.h"
 #include "Vulpine/Utils/Clock.h"
 
 namespace Vulpine {
