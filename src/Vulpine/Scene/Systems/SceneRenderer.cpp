@@ -1,7 +1,6 @@
 #include "SceneRenderer.h"
 
-#include "Vulpine/Scene/Components/SpriteRenderer.h"
-#include "Vulpine/Scene/Components/Transform.h"
+#include "Vulpine/Scene/Components.h"
 
 namespace Vulpine {
 

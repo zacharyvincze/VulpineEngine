@@ -3,7 +3,9 @@
 namespace Vulpine {
 class Clock {
    public:
-    void Start();
+    inline void Start() {
+        m_ClockStart = std::chrono::high_resolution_clock::now();
+    }
 
     template <typename T>
     unsigned long GetElapsed() {

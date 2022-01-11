@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Vulpine/Managers/TextureManager.h"
-#include "Vulpine/Scene/Components/SpriteRenderer.h"
+#include "Vulpine/Scene/Components.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {

@@ -1,8 +1,7 @@
 #include "Scene.h"
 
-#include "SceneLoader.h"
-#include "Vulpine/Scene/Components/SpriteRenderer.h"
-#include "Vulpine/Scene/Components/Transform.h"
+#include "Vulpine/Scene/Components.h"
+#include "Vulpine/Scene/Loaders.h"
 
 namespace Vulpine {
 Scene::Scene(const std::string& scene_id, const std::string& scene_file,
