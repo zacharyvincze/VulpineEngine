@@ -15,7 +15,7 @@
         "x": 0,
         "y": 0,
         "options": {
-            "fullscreen": true,
+            "fullscreen": false,
             "show_cursor": false
         }
     },
