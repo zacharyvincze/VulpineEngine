@@ -1,11 +1,21 @@
 #pragma once
 
+#include <queue>
+
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
 #include "Vulpine/Scene/Systems/TextureLoader.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
+
+/**
+ * @brief Scene events can propagate requests back to the main engine if need
+ * be. This ensures that certain scripted entities are allowed to send specific
+ * requests to quit and such.
+ *
+ */
+enum SceneEvents { ENGINE_QUIT };
 
 /**
  * @brief Responsible for holding game objects and resources associated
@@ -21,7 +31,10 @@ class Scene {
     void Load();
     void Unload();
 
+    void Update();
     void RenderScene();
+
+    bool PollEvents(SceneEvents& event);
 
    private:
     entt::registry m_Registry;
@@ -36,5 +49,7 @@ class Scene {
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;
     TextureLoader m_TextureLoader;
+
+    std::queue<SceneEvents> m_SceneEvents;
 };
 }  // namespace Vulpine

@@ -4,8 +4,11 @@ project(vulpine-engine VERSION 0.0.1)
 # For automatic versioning accessible within source code
 configure_file(VersionConfig.h.in ${CMAKE_BINARY_DIR}/generated/VersionConfig.h)
 include_directories(${CMAKE_BINARY_DIR}/generated/)
+
+# Build settings
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_COMPILER_LAUNCHER ccache)
 
 file(GLOB_RECURSE SRC
     "src/*.cpp"

@@ -34,6 +34,8 @@ void EngineConfig::ParseRenderConfig(nlohmann::json& json) {
         return;
     }
 
+    std::cout << "Just testing something out here.\n";
+
     m_RenderConfig.logical_height = json["height"].get<int>();
     m_RenderConfig.logical_width = json["width"].get<int>();
     m_RenderConfig.flags = 0;

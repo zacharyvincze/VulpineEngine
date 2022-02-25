@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "EngineConfig.h"
+#include "Input.h"
 #include "VersionConfig.h"
 #include "Vulpine/Core/Logger.h"
 #include "Vulpine/Managers/TextureManager.h"
@@ -36,26 +37,29 @@ Engine::Engine() {
     while (running) {
         unsigned long start = m_Clock.GetElapsed<std::chrono::microseconds>();
 
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_KEYDOWN) {
-                switch (event.key.keysym.scancode) {
-                    case SDL_SCANCODE_ESCAPE:
-                        running = false;
-                        break;
-                }
-            }
+        Scene* current_scene = m_SceneManager->GetCurrentScene();
 
-            else if (event.type == SDL_QUIT) {
-                running = false;
+        Input::PollEvents();
+        // Poll and handle any events we may have received from our current
+        // scene.
+        SceneEvents event;
+        while (current_scene->PollEvents(event)) {
+            switch (event) {
+                case SceneEvents::ENGINE_QUIT:
+                    running = false;
+                    break;
             }
         }
 
-        SDL_Rect source_rect = {0, 0, 320, 184};
+        if (Input::isQuit()) running = false;
+        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) running = false;
+
+        current_scene->Update();
 
         renderer.SetColor(0, 0, 0, 0);
         renderer.Clear();
 
-        m_SceneManager->GetCurrentScene()->RenderScene();
+        current_scene->RenderScene();
 
         renderer.Present();
 

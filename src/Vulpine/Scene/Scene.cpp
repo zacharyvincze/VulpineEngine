@@ -40,12 +40,27 @@ void Scene::Unload() {
 }
 
 /**
+ * @brief Update entities using their corresponding systems.
+ *
+ */
+void Scene::Update() {}
+
+/**
  * @brief Render the scene based on the current camera.
  *
  * @param renderer The SDL Renderer context to use for rendering.
  */
 void Scene::RenderScene() {
     m_SceneRenderer.Render(m_Registry, m_Renderer, m_TextureManager);
+}
+
+bool Scene::PollEvents(SceneEvents& event) {
+    if (!m_SceneEvents.empty()) {
+        event = m_SceneEvents.front();
+        m_SceneEvents.pop();
+        return true;
+    }
+    return false;
 }
 
 }  // namespace Vulpine

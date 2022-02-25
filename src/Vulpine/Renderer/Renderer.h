@@ -5,6 +5,10 @@
 #include "Vulpine/Core/EngineConfig.h"
 #include "Vulpine/Core/Window.h"
 
+/**
+ * @brief Handles calls to rendering backend.
+ *
+ */
 namespace Vulpine {
 class Renderer {
    public:
