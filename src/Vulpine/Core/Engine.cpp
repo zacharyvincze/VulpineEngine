@@ -19,22 +19,29 @@ Engine::Engine() {
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
-    EngineConfig config("data/config/vulpine.json");
+    m_Config = new EngineConfig("data/config/vulpine.json");
+    m_Window = new Window(m_Config->GetWindowConfig());
+    m_Renderer = new Renderer(*m_Window, m_Config->GetRenderConfig());
 
-    Window window = Window(config.GetWindowConfig());
-    Renderer renderer = Renderer(window, config.GetRenderConfig());
-
-    m_SceneManager = new SceneManager(renderer);
+    m_SceneManager = new SceneManager(*m_Renderer);
     m_SceneManager->CreateScene("default", "data/scenes/default.scene.json");
     m_SceneManager->SetScene("default");
 
-    bool running = true;
-    SDL_Event event;
+    m_Running = true;
 
-    unsigned long time_per_frame = 1000000 / config.frames_per_second;
     m_Clock.Start();
+}
 
-    while (running) {
+Engine::~Engine() {
+    delete m_Renderer;
+    delete m_Window;
+    delete m_Config;
+    delete m_SceneManager;
+    VP_CORE_INFO("Quitting VulpineEngine {}", VULPINE_ENGINE_VERSION);
+}
+
+int Engine::Start() {
+    while (m_Running) {
         unsigned long start = m_Clock.GetElapsed<std::chrono::microseconds>();
 
         Scene* current_scene = m_SceneManager->GetCurrentScene();
@@ -46,35 +53,32 @@ Engine::Engine() {
         while (current_scene->PollEvents(event)) {
             switch (event) {
                 case SceneEvents::ENGINE_QUIT:
-                    running = false;
+                    m_Running = false;
                     break;
             }
         }
 
-        if (Input::isQuit()) running = false;
-        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) running = false;
+        if (Input::isQuit()) m_Running = false;
+        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) m_Running = false;
 
         current_scene->Update();
 
-        renderer.SetColor(0, 0, 0, 0);
-        renderer.Clear();
+        m_Renderer->SetColor(0, 0, 0, 0);
+        m_Renderer->Clear();
 
         current_scene->RenderScene();
 
-        renderer.Present();
+        m_Renderer->Present();
 
         // Pause execution for frame capping
         unsigned long end = m_Clock.GetElapsed<std::chrono::microseconds>();
-        std::this_thread::sleep_for(
-            std::chrono::microseconds(time_per_frame - (end - start)));
+        std::this_thread::sleep_for(std::chrono::microseconds(
+            (1000000 / m_Config->frames_per_second) - (end - start)));
 
         end = m_Clock.GetElapsed<std::chrono::microseconds>();
         float frames_per_second = 1000000.0f / (end - start);
     }
+    return 0;
+}
 
-    delete m_SceneManager;
-}
-Engine::~Engine() {
-    VP_CORE_INFO("Quitting VulpineEngine {}", VULPINE_ENGINE_VERSION);
-}
 }  // namespace Vulpine

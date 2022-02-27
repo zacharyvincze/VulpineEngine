@@ -5,6 +5,11 @@
 
 #include <unordered_map>
 
+/**
+ * @brief Static input class for handling input related events.
+ * Input::PollEvents() should only be called once a frame.
+ * 
+ */
 class Input {
    public:
     static void PollEvents();
