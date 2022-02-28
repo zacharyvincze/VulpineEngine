@@ -13,10 +13,10 @@ void SpriteAnimator::Update(entt::registry& registry) {
         // Update sprite based on animated sprite parameters.
         if (Clock::GetElapsed<std::chrono::milliseconds>() -
                 animated_sprite.last_update >=
-            animated_sprite.frame_time) {
+            animated_sprite.frame_times[animated_sprite.current_frame]) {
             animated_sprite.current_frame++;
             if (animated_sprite.current_frame >=
-                animated_sprite.frames.size()) {
+                animated_sprite.animation.size()) {
                 animated_sprite.current_frame = 0;
             }
 
@@ -24,7 +24,8 @@ void SpriteAnimator::Update(entt::registry& registry) {
                 Clock::GetElapsed<std::chrono::milliseconds>();
 
             sprite.source_rect =
-                animated_sprite.frames[animated_sprite.current_frame];
+                animated_sprite.frames
+                    [animated_sprite.animation[animated_sprite.current_frame]];
         }
     }
 }  // namespace Vulpine

@@ -8,9 +8,9 @@ class SceneLoader {
     static int LoadScene(entt::registry& registry, const std::string& filepath);
 };
 
-class SpriteLoader {
+class EntityLoader {
    public:
-    static int LoadSprite(const entt::entity entity,
+    static int LoadEntity(const entt::entity entity,
                           const std::string& filepath,
                           entt::registry& registry);
 };

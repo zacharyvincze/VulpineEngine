@@ -13,6 +13,8 @@ class Engine {
 
     int Start();
 
+    SceneManager* GetSceneManager() { return m_SceneManager; }
+
    private:
     SceneManager* m_SceneManager;
 

@@ -1,20 +1,7 @@
 {
-    "sprites": [
+    "objects": [
         {
-            "path": "data/sprites/chaco.sprite.json",
-            "position": [16, 16, 32, 16]
-        },
-        {
-            "path": "data/sprites/chaco.sprite.json",
-            "position": [32, 32, 64, 16]
-        },
-        {
-            "path": "data/sprites/chaco.sprite.json",
-            "position": [64, 64, 16, 128]
-        },
-        {
-            "path": "data/sprites/hungry.sprite.json",
-            "position": [72, 72, 16, 16]
+            "path": "data/objects/chaco.obj.json"
         }
     ]
 }

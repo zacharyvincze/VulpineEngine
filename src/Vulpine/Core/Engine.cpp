@@ -24,12 +24,6 @@ Engine::Engine() {
     m_Renderer = new Renderer(*m_Window, m_Config->GetRenderConfig());
 
     m_SceneManager = new SceneManager(*m_Renderer);
-    m_SceneManager->CreateScene("default", "data/scenes/default.scene.json");
-    m_SceneManager->SetScene("default");
-
-    m_Running = true;
-
-    Clock::Start();
 }
 
 Engine::~Engine() {
@@ -41,6 +35,8 @@ Engine::~Engine() {
 }
 
 int Engine::Start() {
+    m_Running = true;
+    Clock::Start();
     while (m_Running) {
         unsigned long start = Clock::GetElapsed<std::chrono::microseconds>();
 

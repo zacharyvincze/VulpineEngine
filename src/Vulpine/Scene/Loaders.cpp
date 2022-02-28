@@ -1,6 +1,8 @@
 #include "Loaders.h"
 
 #include "Vulpine/Scene/Components.h"
+#include "Vulpine/Utils/Clock.h"
+#include "Vulpine/Utils/Utils.h"
 
 namespace Vulpine {
 int SceneLoader::LoadScene(entt::registry& registry,
@@ -15,17 +17,13 @@ int SceneLoader::LoadScene(entt::registry& registry,
     in_file >> json;
 
     // Load scene sprites into memory
-    for (auto& item : json["sprites"].items()) {
+    for (auto& item : json["objects"].items()) {
         const entt::entity entity = registry.create();
-        if (SpriteLoader::LoadSprite(entity,
+        if (EntityLoader::LoadEntity(entity,
                                      item.value()["path"].get<std::string>(),
                                      registry) < 0) {
             return -1;
         }
-        std::vector<int> dest =
-            item.value()["position"].get<std::vector<int>>();
-        registry.emplace<Transform>(
-            entity, SDL_Rect{dest[0], dest[1], dest[2], dest[3]});
     }
 
     return 0;
@@ -38,7 +36,7 @@ int SceneLoader::LoadScene(entt::registry& registry,
  * @param registry the registry to load this sprite into.
  * @return 0 on success, -1 on failure.
  */
-int SpriteLoader::LoadSprite(const entt::entity entity,
+int EntityLoader::LoadEntity(const entt::entity entity,
                              const std::string& filepath,
                              entt::registry& registry) {
     std::ifstream in_file(filepath.c_str());
@@ -47,19 +45,45 @@ int SpriteLoader::LoadSprite(const entt::entity entity,
         return -1;
     }
 
-    nlohmann::json in_json;
-    in_file >> in_json;
-
+    nlohmann::json json;
+    in_file >> json;
     in_file.close();
 
-    std::vector<int> source = in_json["source"].get<std::vector<int>>();
+    for (auto& item : json["components"].items()) {
+        if (item.key() == "Sprite") {
+            std::vector<int> source_rect =
+                item.value()["source_rect"].get<std::vector<int>>();
+            registry.emplace<Sprite>(
+                entity, item.value()["texture_path"].get<std::string>(),
+                Utils::ConvertVectorToRect(source_rect));
+        }
 
-    SDL_Rect source_rect = SDL_Rect{source[0], source[1], source[2], source[3]};
+        else if (item.key() == "AnimatedSprite") {
+            std::vector<SDL_Rect> frames;
 
-    registry.emplace<Sprite>(entity, in_json["texture_path"].get<std::string>(),
-                             source_rect);
+            for (auto& frame : item.value()["frames"].items()) {
+                std::vector<int> pos = frame.value().get<std::vector<int>>();
+                frames.push_back(Utils::ConvertVectorToRect(pos));
+            }
 
-    VP_CORE_DEBUG("Loaded sprite {}", filepath);
+            std::vector<int> animation =
+                item.value()["animation"].get<std::vector<int>>();
+
+            registry.emplace<AnimatedSprite>(
+                entity, frames, animation, 0,
+                item.value()["frame_times"].get<std::vector<unsigned int>>(),
+                Clock::GetElapsed<std::chrono::milliseconds>());
+        }
+
+        else if (item.key() == "Transform") {
+            std::vector<int> position =
+                item.value()["position"].get<std::vector<int>>();
+            registry.emplace<Transform>(entity,
+                                        Utils::ConvertVectorToRect(position));
+        }
+    }
+
+    VP_CORE_DEBUG("Loaded sprite {}", json["name"].get<std::string>());
     return 0;
 }
 

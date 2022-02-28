@@ -35,11 +35,13 @@ struct AnimatedSprite {
     // Source rectangles that correspond to each frame.
     std::vector<SDL_Rect> frames;
 
+    std::vector<int> animation;
+
     // The index pointing to the current source rectangle to be used.
     unsigned int current_frame;
 
     // The amount of time each frame should spend.
-    unsigned int frame_time;
+    std::vector<unsigned int> frame_times;
 
     unsigned int last_update;
 };
