@@ -40,6 +40,8 @@ struct AnimatedSprite {
 
     // The amount of time each frame should spend.
     unsigned int frame_time;
+
+    unsigned int last_update;
 };
 
 }  // namespace Vulpine

@@ -2,10 +2,6 @@
     "sprites": [
         {
             "path": "data/sprites/chaco.sprite.json",
-            "position": [0, 0, 16, 16]
-        },
-        {
-            "path": "data/sprites/chaco.sprite.json",
             "position": [16, 16, 32, 16]
         },
         {

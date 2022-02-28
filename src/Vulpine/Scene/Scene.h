@@ -4,6 +4,7 @@
 
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
+#include "Vulpine/Scene/Systems/SpriteAnimator.h"
 #include "Vulpine/Scene/Systems/TextureLoader.h"
 #include "Vulpine/vppch.h"
 
@@ -49,6 +50,7 @@ class Scene {
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;
     TextureLoader m_TextureLoader;
+    SpriteAnimator m_SpriteAnimator;
 
     std::queue<SceneEvents> m_SceneEvents;
 };

@@ -2,6 +2,7 @@
 
 #include "Vulpine/Scene/Components.h"
 #include "Vulpine/Scene/Loaders.h"
+#include "Vulpine/Utils/Clock.h"
 
 namespace Vulpine {
 Scene::Scene(const std::string& scene_id, const std::string& scene_file,
@@ -26,6 +27,18 @@ void Scene::Load() {
         exit(EXIT_FAILURE);
     }
 
+    // TODO: Remove this later, this is just some animated sprite testing
+    entt::entity animated = m_Registry.create();
+    m_Registry.emplace<Sprite>(animated, "data/sprites/NpcGuest.png",
+                               (SDL_Rect){128, 0, 16, 16});
+    std::vector<SDL_Rect> animated_sprite_list = {(SDL_Rect){128, 0, 16, 16},
+                                                  (SDL_Rect){144, 0, 16, 16}};
+
+    m_Registry.emplace<AnimatedSprite>(
+        animated, animated_sprite_list, 0, 2000,
+        Clock::GetElapsed<std::chrono::milliseconds>());
+    m_Registry.emplace<Transform>(animated, (SDL_Rect){0, 0, 16, 16});
+
     m_TextureLoader.LoadTextures(m_Registry, m_TextureManager);
 }
 
@@ -43,7 +56,7 @@ void Scene::Unload() {
  * @brief Update entities using their corresponding systems.
  *
  */
-void Scene::Update() {}
+void Scene::Update() { m_SpriteAnimator.Update(m_Registry); }
 
 /**
  * @brief Render the scene based on the current camera.
