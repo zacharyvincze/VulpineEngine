@@ -1,5 +1,6 @@
 #include "Input.h"
 
+namespace Vulpine {
 std::unordered_map<SDL_Scancode, bool> Input::m_PressedKeys;
 std::unordered_map<SDL_Scancode, bool> Input::m_ReleasedKeys;
 std::unordered_map<SDL_Scancode, bool> Input::m_HeldKeys;
@@ -30,3 +31,4 @@ bool Input::IsKeyReleased(SDL_Scancode key) { return m_ReleasedKeys[key]; }
 bool Input::IsKeyHeld(SDL_Scancode key) { return m_HeldKeys[key]; }
 
 bool Input::isQuit() { return m_IsQuit; }
+}

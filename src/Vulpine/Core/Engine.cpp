@@ -29,7 +29,7 @@ Engine::Engine() {
 
     m_Running = true;
 
-    m_Clock.Start();
+    Clock::Start();
 }
 
 Engine::~Engine() {
@@ -42,7 +42,7 @@ Engine::~Engine() {
 
 int Engine::Start() {
     while (m_Running) {
-        unsigned long start = m_Clock.GetElapsed<std::chrono::microseconds>();
+        unsigned long start = Clock::GetElapsed<std::chrono::microseconds>();
 
         Scene* current_scene = m_SceneManager->GetCurrentScene();
 
@@ -71,11 +71,11 @@ int Engine::Start() {
         m_Renderer->Present();
 
         // Pause execution for frame capping
-        unsigned long end = m_Clock.GetElapsed<std::chrono::microseconds>();
+        unsigned long end = Clock::GetElapsed<std::chrono::microseconds>();
         std::this_thread::sleep_for(std::chrono::microseconds(
             (1000000 / m_Config->frames_per_second) - (end - start)));
 
-        end = m_Clock.GetElapsed<std::chrono::microseconds>();
+        end = Clock::GetElapsed<std::chrono::microseconds>();
         float frames_per_second = 1000000.0f / (end - start);
     }
     return 0;

@@ -13,10 +13,10 @@ namespace Vulpine {
  */
 void SceneRenderer::Render(entt::registry& registry, Renderer& renderer,
                            TextureManager& textures) {
-    auto view = registry.view<SpriteRenderer, Transform>();
+    auto view = registry.view<Sprite, Transform>();
     for (auto entity : view) {
         Transform& trans = view.get<Transform>(entity);
-        SpriteRenderer& sprite_renderer = view.get<SpriteRenderer>(entity);
+        Sprite& sprite_renderer = view.get<Sprite>(entity);
         renderer.DrawTexture(textures.GetTexture(sprite_renderer.texture_path),
                              &sprite_renderer.source_rect, &trans.position);
     }

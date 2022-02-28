@@ -3,10 +3,10 @@
 namespace Vulpine {
 void TextureLoader::LoadTextures(entt::registry& registry,
                                  TextureManager& textures) {
-    auto view = registry.view<SpriteRenderer>();
+    auto view = registry.view<Sprite>();
     std::set<std::string> unique_textures;
     for (auto entity : view) {
-        SpriteRenderer& sprite = view.get<SpriteRenderer>(entity);
+        Sprite& sprite = view.get<Sprite>(entity);
         unique_textures.insert(sprite.texture_path);
     }
 

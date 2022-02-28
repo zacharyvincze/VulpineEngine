@@ -15,7 +15,6 @@ class Engine {
 
    private:
     SceneManager* m_SceneManager;
-    Clock m_Clock;
 
     bool m_Running;
 

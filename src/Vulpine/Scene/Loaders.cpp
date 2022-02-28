@@ -56,8 +56,8 @@ int SpriteLoader::LoadSprite(const entt::entity entity,
 
     SDL_Rect source_rect = SDL_Rect{source[0], source[1], source[2], source[3]};
 
-    registry.emplace<SpriteRenderer>(
-        entity, in_json["texture_path"].get<std::string>(), source_rect);
+    registry.emplace<Sprite>(entity, in_json["texture_path"].get<std::string>(),
+                             source_rect);
 
     VP_CORE_DEBUG("Loaded sprite {}", filepath);
     return 0;

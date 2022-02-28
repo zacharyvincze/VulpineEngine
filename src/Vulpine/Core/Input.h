@@ -8,8 +8,10 @@
 /**
  * @brief Static input class for handling input related events.
  * Input::PollEvents() should only be called once a frame.
- * 
+ *
  */
+namespace Vulpine {
+
 class Input {
    public:
     static void PollEvents();
@@ -24,5 +26,6 @@ class Input {
     static std::unordered_map<SDL_Scancode, bool> m_HeldKeys;
     static bool m_IsQuit;
 };
+}  // namespace Vulpine
 
 #endif  // INPUT_H
