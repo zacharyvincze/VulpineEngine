@@ -30,9 +30,9 @@ int SceneLoader::LoadScene(entt::registry& registry,
 }
 
 /**
- * @brief Loads a sprite and inserts it into a Scene's registry.
+ * @brief Loads an object and inserts it into a Scene's registry.
  *
- * @param filepath the path to the sprite information file.
+ * @param filepath the path to the object information file.
  * @param registry the registry to load this sprite into.
  * @return 0 on success, -1 on failure.
  */
@@ -41,7 +41,7 @@ int EntityLoader::LoadEntity(const entt::entity entity,
                              entt::registry& registry) {
     std::ifstream in_file(filepath.c_str());
     if (!in_file.is_open()) {
-        VP_CORE_ERROR("Unable to load sprite file {}", filepath);
+        VP_CORE_ERROR("Unable to load object file {}", filepath);
         return -1;
     }
 
@@ -83,7 +83,7 @@ int EntityLoader::LoadEntity(const entt::entity entity,
         }
     }
 
-    VP_CORE_DEBUG("Loaded sprite {}", json["name"].get<std::string>());
+    VP_CORE_DEBUG("Loaded object {}", json["name"].get<std::string>());
     return 0;
 }
 
