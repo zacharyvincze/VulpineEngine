@@ -32,7 +32,7 @@ class Scene {
     ~Scene();
 
     void Load();
-    void LoadEntity(const std::string& filepath);
+    Entity LoadEntity(const std::string& filepath);
     void Unload();
 
     void Update();

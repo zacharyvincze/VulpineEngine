@@ -10,6 +10,11 @@ int main(int argc, char** argv) {
         "default", "data/scenes/default.scene.json");
     engine->GetSceneManager()->SetScene("default");
 
+    Vulpine::Entity entity =
+        default_scene->LoadEntity("data/objects/chaco.obj.json");
+    entity.GetComponent<Vulpine::Transform>().position =
+        (SDL_Rect){0, 32, 32, 32};
+
     // Start the engine
     engine->Start();
 

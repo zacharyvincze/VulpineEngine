@@ -77,7 +77,7 @@ Entity Scene::CreateEntity() {
     return entity;
 }
 
-void Scene::LoadEntity(const std::string& filepath) {
+Entity Scene::LoadEntity(const std::string& filepath) {
     std::ifstream in_file(filepath.c_str());
     if (!in_file.is_open()) {
         VP_CORE_ERROR("Unable to load object file {}", filepath);
@@ -123,6 +123,8 @@ void Scene::LoadEntity(const std::string& filepath) {
                 Utils::ConvertVectorToRect(position));
         }
     }
+
+    return entity;
 
     VP_CORE_DEBUG("Loaded object {}", json["name"].get<std::string>());
 }
