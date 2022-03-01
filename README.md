@@ -17,3 +17,26 @@ An in-development, 2D SDL game engine.
 -   General user input manager.
 -   Physics system.
 -   And more, although this is what I'm working on currently.
+
+## Compilation Instructions
+
+### Install Necessary Dependencies
+
+```bash
+sudo apt install libsdl2-dev libsdl2-image-dev cmake make
+```
+
+### Compile using CMake
+
+```bash
+mkdir -p build
+cd build
+cmake ..    # or use 'cmake -G "Ninja" ..' for much faster compile times.
+make        # or 'ninja' depending on the build system you used.
+```
+
+### Running the program
+
+```bash
+build//application  # From the repo's root directory.
+```

@@ -16,13 +16,14 @@ Engine::Engine() {
     Logger::Init();
     VP_CORE_INFO("Starting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 
+    // Initialize SDL subsystems
     SDL_Init(SDL_INIT_EVERYTHING);
     IMG_Init(IMG_INIT_PNG);
 
+    // Initialize some engine related subsystems
     m_Config = new EngineConfig("data/config/vulpine.json");
     m_Window = new Window(m_Config->GetWindowConfig());
     m_Renderer = new Renderer(*m_Window, m_Config->GetRenderConfig());
-
     m_SceneManager = new SceneManager(*m_Renderer);
 }
 
@@ -31,6 +32,9 @@ Engine::~Engine() {
     delete m_Window;
     delete m_Config;
     delete m_SceneManager;
+
+    IMG_Quit();
+    SDL_Quit();
     VP_CORE_INFO("Quitting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 }
 
