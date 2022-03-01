@@ -14,11 +14,12 @@ SceneManager::~SceneManager() {
     m_Scenes.clear();
 }
 
-void SceneManager::CreateScene(const std::string& scene_id,
-                               const std::string& scene_file) {
+Scene* SceneManager::CreateScene(const std::string& scene_id,
+                                 const std::string& scene_file) {
     Scene* scene = new Scene(scene_id, scene_file, m_Renderer);
     m_Scenes.insert(std::pair<std::string, Scene*>(scene_id, scene));
     VP_CORE_DEBUG("Created scene {}", scene_id);
+    return scene;
 }
 
 void SceneManager::SetScene(const std::string& scene_id) {

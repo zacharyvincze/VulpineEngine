@@ -18,6 +18,8 @@ namespace Vulpine {
  */
 enum SceneEvents { ENGINE_QUIT };
 
+class Entity;
+
 /**
  * @brief Responsible for holding game objects and resources associated
  * with a certain level in a game.
@@ -30,10 +32,13 @@ class Scene {
     ~Scene();
 
     void Load();
+    void LoadEntity(const std::string& filepath);
     void Unload();
 
     void Update();
     void RenderScene();
+
+    Entity CreateEntity();
 
     bool PollEvents(SceneEvents& event);
 
@@ -53,5 +58,10 @@ class Scene {
     SpriteAnimator m_SpriteAnimator;
 
     std::queue<SceneEvents> m_SceneEvents;
+
+    // Allow the Entity class to access private members of scenes.
+    // This is required to gain access to the registry. Though we'd
+    // like to keep each scene's registry private whenever possible.
+    friend class Entity;
 };
 }  // namespace Vulpine
