@@ -42,7 +42,9 @@ int Engine::Start() {
     m_Running = true;
     Clock::Start();
     while (m_Running) {
-        unsigned long start = Clock::GetElapsed<std::chrono::microseconds>();
+        // Update delta time before updating next frame start time
+        Clock::UpdateDeltaTime();
+        double start = Clock::GetElapsed<std::chrono::seconds::period>();
 
         Scene* current_scene = m_SceneManager->GetCurrentScene();
 
@@ -61,9 +63,9 @@ int Engine::Start() {
         if (Input::isQuit()) m_Running = false;
         if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) m_Running = false;
 
-        current_scene->Update();
+        current_scene->Update(Clock::GetDeltaTime<std::chrono::seconds::period>());
 
-        m_Renderer->SetColor(0, 0, 0, 0);
+        m_Renderer->SetColor(17, 30, 47, 0);
         m_Renderer->Clear();
 
         current_scene->RenderScene();
@@ -71,11 +73,15 @@ int Engine::Start() {
         m_Renderer->Present();
 
         // Pause execution for frame capping
-        unsigned long end = Clock::GetElapsed<std::chrono::microseconds>();
-        std::this_thread::sleep_for(std::chrono::microseconds((1000000 / m_Config->frames_per_second) - (end - start)));
+        double end = Clock::GetElapsed<std::chrono::seconds::period>();
 
-        end = Clock::GetElapsed<std::chrono::microseconds>();
-        float frames_per_second = 1000000.0f / (end - start);
+        // std::this_thread::sleep_for(std::chrono::duration<double, std::chrono::seconds>(
+        //     (1 / (double)m_Config->frames_per_second) - (end - start)));
+        std::this_thread::sleep_for(std::chrono::duration<double, std::chrono::seconds::period>(
+            (1.0f / (double)m_Config->frames_per_second) - (end - start)));
+
+        end = Clock::GetElapsed<std::chrono::seconds::period>();
+        double frames_per_second = 1.0f / (end - start);
     }
     return 0;
 }

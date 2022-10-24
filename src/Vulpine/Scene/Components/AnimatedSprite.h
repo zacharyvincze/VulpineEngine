@@ -27,7 +27,7 @@ struct AnimatedSprite {
     // The amount of time each frame should spend.
     std::vector<unsigned int> frame_times;
 
-    unsigned int last_update;
+    double elapsed_time;
 };
 
 }  // namespace Components

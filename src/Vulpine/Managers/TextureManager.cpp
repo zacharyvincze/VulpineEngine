@@ -3,13 +3,9 @@
 #include "Vulpine/Core/Logger.h"
 
 namespace Vulpine {
-TextureManager::TextureManager(SDL_Renderer* renderer) {
-    m_Renderer = renderer;
-}
+TextureManager::TextureManager(SDL_Renderer* renderer) { m_Renderer = renderer; }
 
-SDL_Texture* TextureManager::GetTexture(const std::string& filepath) {
-    return m_Textures.at(filepath);
-}
+SDL_Texture* TextureManager::GetTexture(const std::string& filepath) { return m_Textures.at(filepath); }
 
 void TextureManager::Load(const std::string& filepath) {
     // Load texture onto the GPU
@@ -19,8 +15,7 @@ void TextureManager::Load(const std::string& filepath) {
     }
 
     // Load this texture onto the GPU and insert it into our map
-    m_Textures.insert(std::pair<std::string, SDL_Texture*>(
-        filepath, GenerateTexture(filepath)));
+    m_Textures.insert(std::pair<std::string, SDL_Texture*>(filepath, GenerateTexture(filepath)));
 
     VP_CORE_DEBUG("Loaded texture {}", filepath);
 }
@@ -55,6 +50,8 @@ SDL_Texture* TextureManager::GenerateTexture(const std::string& filepath) {
         exit(EXIT_FAILURE);
         return NULL;
     }
+
+    SDL_SetColorKey(surface, SDL_TRUE, 0x000000);
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(m_Renderer, surface);
     if (texture == NULL) {

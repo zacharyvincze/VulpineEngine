@@ -22,9 +22,8 @@ void Entity::ToObject(nlohmann::json& j) {
 
             std::vector<int> animation = item.value()["animation"].get<std::vector<int>>();
 
-            AddComponent<Components::AnimatedSprite>(frames, animation, 0,
-                                                     item.value()["frame_times"].get<std::vector<unsigned int>>(),
-                                                     Clock::GetElapsed<std::chrono::milliseconds>());
+            AddComponent<Components::AnimatedSprite>(
+                frames, animation, 0, item.value()["frame_times"].get<std::vector<unsigned int>>(), 0.0f);
         }
 
         else if (item.key() == "Transform") {
