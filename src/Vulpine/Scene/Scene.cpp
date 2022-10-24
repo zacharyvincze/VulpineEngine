@@ -6,8 +6,7 @@
 #include "Vulpine/Utils/Utils.h"
 
 namespace Vulpine {
-Scene::Scene(const std::string& scene_id, const std::string& scene_file,
-             Renderer& renderer)
+Scene::Scene(const std::string& scene_id, const std::string& scene_file, Renderer& renderer)
     : m_TextureManager(renderer.GetSDLRenderer()),
       m_SceneID(scene_id),
       m_Renderer(renderer),
@@ -59,9 +58,7 @@ void Scene::Update() { m_SpriteAnimator.Update(m_Registry); }
  *
  * @param renderer The SDL Renderer context to use for rendering.
  */
-void Scene::RenderScene() {
-    m_SceneRenderer.Render(m_Registry, m_Renderer, m_TextureManager);
-}
+void Scene::RenderScene() { m_SceneRenderer.Render(m_Registry, m_Renderer, m_TextureManager); }
 
 bool Scene::PollEvents(SceneEvents& event) {
     if (!m_SceneEvents.empty()) {
@@ -92,11 +89,9 @@ Entity Scene::LoadEntity(const std::string& filepath) {
 
     for (auto& item : json["components"].items()) {
         if (item.key() == "Sprite") {
-            std::vector<int> source_rect =
-                item.value()["source_rect"].get<std::vector<int>>();
-            entity.AddComponent<Sprite>(
-                item.value()["texture_path"].get<std::string>(),
-                Utils::ConvertVectorToRect(source_rect));
+            std::vector<int> source_rect = item.value()["source_rect"].get<std::vector<int>>();
+            entity.AddComponent<Sprite>(item.value()["texture_path"].get<std::string>(),
+                                        Utils::ConvertVectorToRect(source_rect));
         }
 
         else if (item.key() == "AnimatedSprite") {
@@ -107,20 +102,16 @@ Entity Scene::LoadEntity(const std::string& filepath) {
                 frames.push_back(Utils::ConvertVectorToRect(pos));
             }
 
-            std::vector<int> animation =
-                item.value()["animation"].get<std::vector<int>>();
+            std::vector<int> animation = item.value()["animation"].get<std::vector<int>>();
 
-            entity.AddComponent<AnimatedSprite>(
-                frames, animation, 0,
-                item.value()["frame_times"].get<std::vector<unsigned int>>(),
-                Clock::GetElapsed<std::chrono::milliseconds>());
+            entity.AddComponent<AnimatedSprite>(frames, animation, 0,
+                                                item.value()["frame_times"].get<std::vector<unsigned int>>(),
+                                                Clock::GetElapsed<std::chrono::milliseconds>());
         }
 
         else if (item.key() == "Transform") {
-            std::vector<int> position =
-                item.value()["position"].get<std::vector<int>>();
-            entity.AddComponent<Transform>(
-                Utils::ConvertVectorToRect(position));
+            std::vector<int> position = item.value()["position"].get<std::vector<int>>();
+            entity.AddComponent<Transform>(Utils::ConvertVectorToRect(position));
         }
     }
 
