@@ -10,7 +10,8 @@ namespace Components {
  *
  */
 struct Transform {
-    SDL_Rect position;
+    Vec2 position;
+    Vec2 size;
 };
 }  // namespace Components
 }  // namespace Vulpine

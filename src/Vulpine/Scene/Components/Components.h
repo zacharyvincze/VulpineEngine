@@ -3,5 +3,6 @@
 // Includes some common components to be used throughout the engine core.
 
 #include "AnimatedSprite.h"
+#include "Rigidbody.h"
 #include "Sprite.h"
 #include "Transform.h"

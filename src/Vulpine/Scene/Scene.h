@@ -3,6 +3,7 @@
 #include <queue>
 
 #include "Vulpine/Renderer/Renderer.h"
+#include "Vulpine/Scene/Systems/Physics.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
 #include "Vulpine/Scene/Systems/SpriteAnimator.h"
 #include "Vulpine/Scene/Systems/TextureLoader.h"
@@ -27,8 +28,7 @@ class Entity;
  */
 class Scene {
    public:
-    Scene(const std::string& scene_id, const std::string& scene_file,
-          Renderer& renderer);
+    Scene(const std::string& scene_id, const std::string& scene_file, Renderer& renderer);
     ~Scene();
 
     void Load();
@@ -56,6 +56,7 @@ class Scene {
     SceneRenderer m_SceneRenderer;
     TextureLoader m_TextureLoader;
     SpriteAnimator m_SpriteAnimator;
+    Physics m_Physics;
 
     std::queue<SceneEvents> m_SceneEvents;
 

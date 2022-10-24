@@ -28,8 +28,9 @@ void Entity::ToObject(nlohmann::json& j) {
         }
 
         else if (item.key() == "Transform") {
-            std::vector<int> position = item.value()["position"].get<std::vector<int>>();
-            AddComponent<Components::Transform>(Utils::ConvertVectorToRect(position));
+            std::vector<float> position = item.value()["position"].get<std::vector<float>>();
+            std::vector<float> size = item.value()["size"].get<std::vector<float>>();
+            AddComponent<Components::Transform>(Utils::ConvertVectorToVec2(position), Utils::ConvertVectorToVec2(size));
         }
     }
 }

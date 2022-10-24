@@ -59,7 +59,8 @@
             ]
         },
         "Transform": {
-            "position": [0, 0, 32, 32]
+            "position": [0, 0],
+            "size": [32, 32]
         }
     }
 }

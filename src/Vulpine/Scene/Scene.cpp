@@ -49,7 +49,10 @@ void Scene::Unload() {
  * @brief Update entities using their corresponding systems.
  *
  */
-void Scene::Update() { m_SpriteAnimator.Update(m_Registry); }
+void Scene::Update() {
+    m_SpriteAnimator.Update(m_Registry);
+    m_Physics.Update(m_Registry);
+}
 
 /**
  * @brief Render the scene based on the current camera.
