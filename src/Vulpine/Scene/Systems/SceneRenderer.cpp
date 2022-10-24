@@ -1,6 +1,6 @@
 #include "SceneRenderer.h"
 
-#include "Vulpine/Scene/Components.h"
+#include "Vulpine/Scene/Components/Components.h"
 
 namespace Vulpine {
 
@@ -11,14 +11,13 @@ namespace Vulpine {
  * @param renderer The SDL renderer context to use for rendering
  * @param textures The texture manager containing any required textures
  */
-void SceneRenderer::Render(entt::registry& registry, Renderer& renderer,
-                           TextureManager& textures) {
-    auto view = registry.view<Sprite, Transform>();
+void SceneRenderer::Render(entt::registry& registry, Renderer& renderer, TextureManager& textures) {
+    auto view = registry.view<Components::Sprite, Components::Transform>();
     for (auto entity : view) {
-        Transform& trans = view.get<Transform>(entity);
-        Sprite& sprite_renderer = view.get<Sprite>(entity);
-        renderer.DrawTexture(textures.GetTexture(sprite_renderer.texture_path),
-                             &sprite_renderer.source_rect, &trans.position);
+        Components::Transform& trans = view.get<Components::Transform>(entity);
+        Components::Sprite& sprite_renderer = view.get<Components::Sprite>(entity);
+        renderer.DrawTexture(textures.GetTexture(sprite_renderer.texture_path), &sprite_renderer.source_rect,
+                             &trans.position);
     }
 }
 }  // namespace Vulpine

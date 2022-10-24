@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Vulpine/Core/Config/JsonSchema.h"
+#include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
 namespace Config {
-struct RenderConfig : public JsonSchema {
+struct RenderConfig : public Serializable {
     int logical_width = 640;
     int logical_height = 480;
     uint32_t flags = SDL_RENDERER_SOFTWARE;

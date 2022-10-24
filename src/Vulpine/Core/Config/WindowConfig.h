@@ -1,12 +1,12 @@
 #pragma once
 
-#include "JsonSchema.h"
+#include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
 namespace Config {
 
-struct WindowConfig : public JsonSchema {
+struct WindowConfig : public Serializable {
     std::string title = "VulpineEngine";
     int x = 0;
     int y = 0;

@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceRoot}/build/application",
-            "preLaunchTask": "Ninja Build",
+            "preLaunchTask": "build",
             "cwd": "${workspaceRoot}"
         }
     ]

@@ -1,6 +1,6 @@
 #include "Scene.h"
 
-#include "Vulpine/Scene/Components.h"
+#include "Vulpine/Scene/Components/Components.h"
 #include "Vulpine/Scene/Entity.h"
 #include "Vulpine/Utils/Clock.h"
 #include "Vulpine/Utils/Utils.h"
@@ -31,9 +31,7 @@ void Scene::Load() {
     in_file >> json;
 
     // Load scene sprites into memory
-    for (auto& item : json["objects"].items()) {
-        LoadEntity(item.value()["path"].get<std::string>());
-    }
+    for (auto& item : json["objects"].items()) { LoadEntity(item.value()["path"].get<std::string>()); }
 
     m_TextureLoader.LoadTextures(m_Registry, m_TextureManager);
 }
@@ -86,34 +84,7 @@ Entity Scene::LoadEntity(const std::string& filepath) {
     in_file.close();
 
     Entity entity = CreateEntity();
-
-    for (auto& item : json["components"].items()) {
-        if (item.key() == "Sprite") {
-            std::vector<int> source_rect = item.value()["source_rect"].get<std::vector<int>>();
-            entity.AddComponent<Sprite>(item.value()["texture_path"].get<std::string>(),
-                                        Utils::ConvertVectorToRect(source_rect));
-        }
-
-        else if (item.key() == "AnimatedSprite") {
-            std::vector<SDL_Rect> frames;
-
-            for (auto& frame : item.value()["frames"].items()) {
-                std::vector<int> pos = frame.value().get<std::vector<int>>();
-                frames.push_back(Utils::ConvertVectorToRect(pos));
-            }
-
-            std::vector<int> animation = item.value()["animation"].get<std::vector<int>>();
-
-            entity.AddComponent<AnimatedSprite>(frames, animation, 0,
-                                                item.value()["frame_times"].get<std::vector<unsigned int>>(),
-                                                Clock::GetElapsed<std::chrono::milliseconds>());
-        }
-
-        else if (item.key() == "Transform") {
-            std::vector<int> position = item.value()["position"].get<std::vector<int>>();
-            entity.AddComponent<Transform>(Utils::ConvertVectorToRect(position));
-        }
-    }
+    entity.ToObject(json);
 
     return entity;
 

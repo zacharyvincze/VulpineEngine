@@ -1,5 +1,5 @@
 #include "Vulpine/Core/Engine.h"
-#include "Vulpine/Scene/Components.h"
+#include "Vulpine/Scene/Components/Components.h"
 #include "Vulpine/Scene/Entity.h"
 
 int main(int argc, char** argv) {
@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     engine->GetSceneManager()->SetScene("default");
 
     Vulpine::Entity entity = default_scene->LoadEntity("data/objects/chaco.obj.json");
-    entity.GetComponent<Vulpine::Transform>().position = (SDL_Rect){0, 32, 32, 32};
+    entity.GetComponent<Vulpine::Components::Transform>().position = (SDL_Rect){0, 32, 32, 32};
 
     // Start the engine
     engine->Start();
