@@ -9,6 +9,7 @@
 #include "Vulpine/Managers/TextureManager.h"
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Scene.h"
+#include "Vulpine/Utils/Clock.h"
 #include "Window.h"
 
 namespace Vulpine {

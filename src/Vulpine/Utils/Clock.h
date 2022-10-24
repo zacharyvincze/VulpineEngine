@@ -1,22 +1,25 @@
+#include "Vulpine/Core/Engine.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
 class Clock {
    public:
-    static void Start();
-
     template <typename T>
     static double GetElapsed();
 
     template <typename T>
     static double GetDeltaTime();
 
-    static void UpdateDeltaTime();
-
    private:
     static std::chrono::high_resolution_clock::time_point m_ClockStart;
     static std::chrono::duration<double> m_deltaTime;
     static std::chrono::high_resolution_clock::time_point m_lastDeltaTime;
+
+    // Only the engine class should be able to access these
+    static void Start();
+    static void UpdateDeltaTime();
+
+    friend class Vulpine::Engine;
 };
 
 template <typename T>

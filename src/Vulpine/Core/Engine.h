@@ -3,7 +3,6 @@
 
 #include "Vulpine/Core/Config/EngineConfig.h"
 #include "Vulpine/Managers/SceneManager.h"
-#include "Vulpine/Utils/Clock.h"
 
 namespace Vulpine {
 class Engine {
