@@ -1,25 +1,11 @@
 #pragma once
 
+#include "Vulpine/Core/Config/RenderConfig.h"
+#include "Vulpine/Core/Config/WindowConfig.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {
-
-struct RenderConfig {
-    int logical_width = 640;
-    int logical_height = 480;
-    uint32_t flags = SDL_RENDERER_SOFTWARE;
-    std::string render_scale_quality = "1";
-};
-
-struct WindowConfig {
-    std::string title = "VulpineEngine";
-    int x = 0;
-    int y = 0;
-    int w = 640;
-    int h = 480;
-    uint32_t flags = SDL_WINDOW_SHOWN;
-    bool show_cursor = true;
-};
+namespace Config {
 
 /**
  * @brief Reads Vulpine engine configuration files.
@@ -30,16 +16,19 @@ class EngineConfig {
     EngineConfig(const std::string& filepath);
     ~EngineConfig();
 
+    // Config for engine-specific submodules
     inline RenderConfig GetRenderConfig() { return m_RenderConfig; }
     inline WindowConfig GetWindowConfig() { return m_WindowConfig; }
 
     int frames_per_second = 0;
 
    private:
-    void ParseRenderConfig(nlohmann::json& render_json);
-    void ParseWindowConfig(nlohmann::json& window_json);
+    const std::string RENDERER_SETTINGS_KEY = "renderer";
+    const std::string WINDOW_SETTINGS_KEY = "window";
 
     RenderConfig m_RenderConfig;
     WindowConfig m_WindowConfig;
 };
+
+}  // namespace Config
 }  // namespace Vulpine

@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "EngineConfig.h"
+#include "Config/EngineConfig.h"
 #include "Input.h"
 #include "VersionConfig.h"
 #include "Vulpine/Core/Logger.h"
@@ -21,7 +21,7 @@ Engine::Engine() {
     IMG_Init(IMG_INIT_PNG);
 
     // Initialize some engine related subsystems
-    m_Config = new EngineConfig("data/config/vulpine.json");
+    m_Config = new Config::EngineConfig("data/config/vulpine.json");
     m_Window = new Window(m_Config->GetWindowConfig());
     m_Renderer = new Renderer(*m_Window, m_Config->GetRenderConfig());
     m_SceneManager = new SceneManager(*m_Renderer);
@@ -72,8 +72,7 @@ int Engine::Start() {
 
         // Pause execution for frame capping
         unsigned long end = Clock::GetElapsed<std::chrono::microseconds>();
-        std::this_thread::sleep_for(std::chrono::microseconds(
-            (1000000 / m_Config->frames_per_second) - (end - start)));
+        std::this_thread::sleep_for(std::chrono::microseconds((1000000 / m_Config->frames_per_second) - (end - start)));
 
         end = Clock::GetElapsed<std::chrono::microseconds>();
         float frames_per_second = 1000000.0f / (end - start);

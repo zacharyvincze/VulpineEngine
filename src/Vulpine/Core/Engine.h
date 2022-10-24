@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Vulpine/Core/EngineConfig.h"
+#include "Vulpine/Core/Config/EngineConfig.h"
 #include "Vulpine/Managers/SceneManager.h"
 #include "Vulpine/Utils/Clock.h"
 
@@ -22,7 +22,7 @@ class Engine {
 
     Window* m_Window;
     Renderer* m_Renderer;
-    EngineConfig* m_Config;
+    Config::EngineConfig* m_Config;
 };
 }  // namespace Vulpine
 
