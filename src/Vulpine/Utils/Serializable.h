@@ -1,5 +1,7 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
+
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {

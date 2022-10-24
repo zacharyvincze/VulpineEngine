@@ -2,6 +2,9 @@
 
 #include <stdarg.h>
 
+#include <entt/entt.hpp>
+#include <nlohmann/json.hpp>
+
 #include "Vulpine/Scene/Scene.h"
 #include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"

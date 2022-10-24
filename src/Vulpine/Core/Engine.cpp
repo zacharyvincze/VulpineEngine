@@ -1,6 +1,9 @@
 #include "Engine.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+#include <thread>
 
 #include "Config/EngineConfig.h"
 #include "Input.h"
@@ -64,7 +67,7 @@ int Engine::Start() {
         if (Input::isQuit()) m_Running = false;
         if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) m_Running = false;
 
-        current_scene->Update(Clock::GetDeltaTime<std::chrono::seconds::period>());
+        current_scene->Update();
 
         m_Renderer->SetColor(17, 30, 47, 0);
         m_Renderer->Clear();

@@ -1,5 +1,9 @@
 #include "RenderConfig.h"
 
+#include <SDL2/SDL.h>
+
+#include <nlohmann/json.hpp>
+
 namespace Vulpine {
 namespace Config {
 void RenderConfig::ToObject(nlohmann::json& j) {

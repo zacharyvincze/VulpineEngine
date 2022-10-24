@@ -2,6 +2,9 @@
 
 #include <SDL2/SDL.h>
 
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 #include "Vulpine/Core/Logger.h"
 #include "Vulpine/vppch.h"
 

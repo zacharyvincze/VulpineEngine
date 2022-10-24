@@ -1,5 +1,7 @@
 #include "WindowConfig.h"
 
+#include <string>
+
 namespace Vulpine {
 namespace Config {
 void WindowConfig::ToObject(nlohmann::json& j) {

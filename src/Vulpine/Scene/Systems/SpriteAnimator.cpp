@@ -4,7 +4,7 @@
 #include "Vulpine/Utils/Clock.h"
 
 namespace Vulpine {
-void SpriteAnimator::Update(entt::registry& registry, double delta_time) {
+void SpriteAnimator::Update(entt::registry& registry) {
     auto view = registry.view<Components::Sprite, Components::AnimatedSprite>();
     for (auto entity : view) {
         Components::Sprite& sprite = view.get<Components::Sprite>(entity);

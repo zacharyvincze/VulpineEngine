@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+#include <fstream>
+
 #include "Vulpine/Scene/Components/Components.h"
 #include "Vulpine/Scene/Entity.h"
 #include "Vulpine/Utils/Clock.h"
@@ -49,9 +51,9 @@ void Scene::Unload() {
  * @brief Update entities using their corresponding systems.
  *
  */
-void Scene::Update(double delta_time) {
-    m_SpriteAnimator.Update(m_Registry, delta_time);
-    m_Physics.Update(m_Registry, delta_time);
+void Scene::Update() {
+    m_SpriteAnimator.Update(m_Registry);
+    m_Physics.Update(m_Registry);
 }
 
 /**

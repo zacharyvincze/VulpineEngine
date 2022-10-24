@@ -1,5 +1,9 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
+#include <nlohmann/json.hpp>
+
 #include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 

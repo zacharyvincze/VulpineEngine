@@ -1,5 +1,7 @@
 #pragma once
 
+#include <entt/entt.hpp>
+
 #include "Vulpine/Managers/TextureManager.h"
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/vppch.h"
@@ -12,8 +14,7 @@ namespace Vulpine {
  */
 class SceneRenderer {
    public:
-    void Render(entt::registry& registry, Renderer& renderer,
-                TextureManager& textures);
+    void Render(entt::registry& registry, Renderer& renderer, TextureManager& textures);
 
    private:
 };

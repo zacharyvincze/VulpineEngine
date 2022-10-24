@@ -25,6 +25,7 @@ pkg_search_module(SDL2 REQUIRED sdl2)
 pkg_search_module(SDL2IMAGE REQUIRED SDL2_image)
 find_package(spdlog REQUIRED)
 
+add_compile_options (-fdiagnostics-color=always)
 include_directories(src libs ${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 add_library(${PROJECT_NAME} STATIC ${VULPINE_SRC})
 target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} spdlog::spdlog)

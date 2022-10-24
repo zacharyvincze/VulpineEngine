@@ -35,7 +35,7 @@ class Scene {
     Entity LoadEntity(const std::string& filepath);
     void Unload();
 
-    void Update(double delta_time);
+    void Update();
     void RenderScene();
 
     Entity CreateEntity();

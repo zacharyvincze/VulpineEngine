@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
 #include "Vulpine/vppch.h"
 
 namespace Vulpine {

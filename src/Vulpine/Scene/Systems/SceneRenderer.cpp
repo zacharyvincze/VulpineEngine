@@ -1,5 +1,7 @@
 #include "SceneRenderer.h"
 
+#include <SDL2/SDL.h>
+
 #include "Vulpine/Scene/Components/Components.h"
 
 namespace Vulpine {
@@ -16,7 +18,8 @@ void SceneRenderer::Render(entt::registry& registry, Renderer& renderer, Texture
     for (auto entity : view) {
         Components::Transform& trans = view.get<Components::Transform>(entity);
         Components::Sprite& sprite_renderer = view.get<Components::Sprite>(entity);
-        SDL_Rect position = (SDL_Rect){trans.position.x, trans.position.y, trans.size.x, trans.size.y};
+        SDL_Rect position =
+            (SDL_Rect){(int)trans.position.x, (int)trans.position.y, (int)trans.size.x, (int)trans.size.y};
         renderer.DrawTexture(textures.GetTexture(sprite_renderer.texture_path), &sprite_renderer.source_rect,
                              &position);
     }
