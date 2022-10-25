@@ -31,6 +31,11 @@ void Entity::ToObject(nlohmann::json& j) {
             std::vector<float> size = item.value()["size"].get<std::vector<float>>();
             AddComponent<Components::Transform>(Utils::ConvertVectorToVec2(position), Utils::ConvertVectorToVec2(size));
         }
+
+        else if (item.key() == "Rigidbody") {
+            std::vector<float> velocity = item.value()["velocity"].get<std::vector<float>>();
+            AddComponent<Components::Rigidbody>(Utils::ConvertVectorToVec2(velocity));
+        }
     }
 }
 }  // namespace Vulpine

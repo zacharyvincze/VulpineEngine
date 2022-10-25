@@ -1,0 +1,16 @@
+{
+    "name": "Chaco",
+    "components": {
+        "Sprite": {
+            "texture_path": "data/sprites/NpcGuest.png",
+            "source_rect": [32, 32, 16, 16]
+        },
+        "Transform": {
+            "position": [960, 720],
+            "size": [32, 32]
+        },
+        "Rigidbody": {
+            "velocity": [60.0, -250.0]
+        }
+    }
+}
