@@ -15,8 +15,10 @@
 #include "Vulpine/Utils/Clock.h"
 #include "Window.h"
 
-namespace Vulpine {
-Engine::Engine() {
+namespace Vulpine
+{
+Engine::Engine()
+{
     Logger::Init();
     VP_CORE_INFO("Starting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 
@@ -31,7 +33,8 @@ Engine::Engine() {
     m_SceneManager = new SceneManager(*m_Renderer);
 }
 
-Engine::~Engine() {
+Engine::~Engine()
+{
     delete m_Renderer;
     delete m_Window;
     delete m_Config;
@@ -42,30 +45,36 @@ Engine::~Engine() {
     VP_CORE_INFO("Quitting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 }
 
-int Engine::Start() {
+int Engine::Start()
+{
     m_Running = true;
     Clock::Start();
-    while (m_Running) {
+    while (m_Running)
+    {
         // Update delta time before updating next frame start time
         Clock::UpdateDeltaTime();
         double start = Clock::GetElapsed<std::chrono::seconds::period>();
 
-        Scene* current_scene = m_SceneManager->GetCurrentScene();
+        Scene *current_scene = m_SceneManager->GetCurrentScene();
 
         Input::PollEvents();
         // Poll and handle any events we may have received from our current
         // scene.
         SceneEvents event;
-        while (current_scene->PollEvents(event)) {
-            switch (event) {
-                case SceneEvents::ENGINE_QUIT:
-                    m_Running = false;
-                    break;
+        while (current_scene->PollEvents(event))
+        {
+            switch (event)
+            {
+            case SceneEvents::ENGINE_QUIT:
+                m_Running = false;
+                break;
             }
         }
 
-        if (Input::isQuit()) m_Running = false;
-        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) m_Running = false;
+        if (Input::isQuit())
+            m_Running = false;
+        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE))
+            m_Running = false;
 
         current_scene->Update();
 
@@ -90,4 +99,4 @@ int Engine::Start() {
     return 0;
 }
 
-}  // namespace Vulpine
+} // namespace Vulpine

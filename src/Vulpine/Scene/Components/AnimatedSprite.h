@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Component.h"
 #include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
-namespace Vulpine {
-namespace Components {
+namespace Vulpine
+{
+namespace Components
+{
 
 /**
  * @brief Component for use with sprites that have multiple frames.
@@ -15,7 +18,8 @@ namespace Components {
  * texture alongside the position)
  *
  */
-struct AnimatedSprite {
+struct AnimatedSprite : public Component
+{
     // Source rectangles that correspond to each frame.
     std::vector<SDL_Rect> frames;
 
@@ -30,5 +34,5 @@ struct AnimatedSprite {
     double elapsed_time;
 };
 
-}  // namespace Components
-}  // namespace Vulpine
+} // namespace Components
+} // namespace Vulpine

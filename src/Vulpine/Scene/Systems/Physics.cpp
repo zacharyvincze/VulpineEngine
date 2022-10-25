@@ -7,12 +7,15 @@
 #include "Vulpine/Scene/Components/Components.h"
 #include "Vulpine/Utils/Clock.h"
 
-namespace Vulpine {
-void Physics::Update(entt::registry& registry) {
+namespace Vulpine
+{
+void Physics::Update(entt::registry &registry)
+{
     auto view = registry.view<Components::Rigidbody, Components::Transform>();
-    for (auto entity : view) {
-        Components::Transform& transform = view.get<Components::Transform>(entity);
-        Components::Rigidbody& rb = view.get<Components::Rigidbody>(entity);
+    for (auto entity : view)
+    {
+        Components::Transform &transform = view.get<Components::Transform>(entity);
+        Components::Rigidbody &rb = view.get<Components::Rigidbody>(entity);
 
         double delta_time = Clock::GetDeltaTime<std::chrono::seconds::period>();
 
@@ -22,4 +25,4 @@ void Physics::Update(entt::registry& registry) {
         rb.velocity.y += 300.85f * delta_time;
     }
 }
-}  // namespace Vulpine
+} // namespace Vulpine

@@ -2,9 +2,12 @@
 
 #include <string>
 
-namespace Vulpine {
-namespace Config {
-void WindowConfig::ToObject(nlohmann::json& j) {
+namespace Vulpine
+{
+namespace Config
+{
+void WindowConfig::ToObject(nlohmann::json &j)
+{
     flags = 0;
 
     title = j["title"].get<std::string>();
@@ -13,13 +16,16 @@ void WindowConfig::ToObject(nlohmann::json& j) {
     h = j["height"].get<int>();
     w = j["width"].get<int>();
 
-    if (j["options"]["fullscreen"].get<bool>()) {
+    if (j["options"]["fullscreen"].get<bool>())
+    {
         flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-    } else {
+    }
+    else
+    {
         flags |= SDL_WINDOW_SHOWN;
     }
 
     show_cursor = j["options"]["show_cursor"].get<bool>();
 }
-}  // namespace Config
-}  // namespace Vulpine
+} // namespace Config
+} // namespace Vulpine

@@ -6,16 +6,18 @@
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/vppch.h"
 
-namespace Vulpine {
+namespace Vulpine
+{
 
 /**
  * @brief System for rendering entities. Requires the SpriteRenderer component.
  *
  */
-class SceneRenderer {
-   public:
-    void Render(entt::registry& registry, Renderer& renderer, TextureManager& textures);
+class SceneRenderer
+{
+  public:
+    void Render(entt::registry &registry, Renderer &renderer, TextureManager &textures);
 
-   private:
+  private:
 };
-}  // namespace Vulpine
+} // namespace Vulpine

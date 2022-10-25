@@ -7,10 +7,13 @@
 #include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
-namespace Vulpine {
-namespace Config {
+namespace Vulpine
+{
+namespace Config
+{
 
-struct WindowConfig : public Serializable {
+struct WindowConfig : public Serializable
+{
     std::string title = "VulpineEngine";
     int x = 0;
     int y = 0;
@@ -19,7 +22,7 @@ struct WindowConfig : public Serializable {
     uint32_t flags = SDL_WINDOW_SHOWN;
     bool show_cursor = true;
 
-    void ToObject(nlohmann::json& j) override;
+    void ToObject(nlohmann::json &j) override;
 };
-}  // namespace Config
-}  // namespace Vulpine
+} // namespace Config
+} // namespace Vulpine

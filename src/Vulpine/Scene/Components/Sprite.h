@@ -1,10 +1,13 @@
 #pragma once
 
+#include "Component.h"
 #include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
-namespace Vulpine {
-namespace Components {
+namespace Vulpine
+{
+namespace Components
+{
 
 /**
  * @brief Component for use with objects that require texture rendering.
@@ -12,10 +15,11 @@ namespace Components {
  * is a destination rectangle.
  *
  */
-struct Sprite {
+struct Sprite : public Component
+{
     std::string texture_path;
     SDL_Rect source_rect;
 };
 
-}  // namespace Components
-}  // namespace Vulpine
+} // namespace Components
+} // namespace Vulpine

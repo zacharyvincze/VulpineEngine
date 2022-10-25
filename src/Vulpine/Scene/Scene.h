@@ -2,6 +2,7 @@
 
 #include <queue>
 
+#include "Vulpine/Managers/EntityManager.h"
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Systems/Physics.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
@@ -9,7 +10,8 @@
 #include "Vulpine/Scene/Systems/TextureLoader.h"
 #include "Vulpine/vppch.h"
 
-namespace Vulpine {
+namespace Vulpine
+{
 
 /**
  * @brief Scene events can propagate requests back to the main engine if need
@@ -17,7 +19,10 @@ namespace Vulpine {
  * requests to quit and such.
  *
  */
-enum SceneEvents { ENGINE_QUIT };
+enum SceneEvents
+{
+    ENGINE_QUIT
+};
 
 class Entity;
 
@@ -26,39 +31,39 @@ class Entity;
  * with a certain level in a game.
  *
  */
-class Scene {
-   public:
-    Scene(const std::string& scene_id, const std::string& scene_file, Renderer& renderer);
+class Scene
+{
+  public:
+    Scene(const std::string &scene_id, const std::string &scene_file, Renderer &renderer);
     ~Scene();
 
     void Load();
-    Entity* LoadEntity(const std::string& filepath);
     void Unload();
 
     void Update();
     void RenderScene();
 
-    Entity* CreateEntity();
+    bool PollEvents(SceneEvents &event);
 
-    bool PollEvents(SceneEvents& event);
+    EntityManager &GetEntityManager()
+    {
+        return m_entityManager;
+    }
 
-   private:
-    // Entity storage and caching
-    entt::registry m_Registry;
-    std::vector<Entity*> m_entities;
-
+  private:
     std::string m_SceneID;
     std::string m_SceneFilepath;
 
     TextureManager m_TextureManager;
 
     // Renderer context to use for this scene
-    Renderer& m_Renderer;
+    Renderer &m_Renderer;
 
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;
     TextureLoader m_TextureLoader;
     SpriteAnimator m_SpriteAnimator;
+    EntityManager m_entityManager;
     Physics m_Physics;
 
     std::queue<SceneEvents> m_SceneEvents;
@@ -68,4 +73,4 @@ class Scene {
     // like to keep each scene's registry private whenever possible.
     friend class Entity;
 };
-}  // namespace Vulpine
+} // namespace Vulpine
