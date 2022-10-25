@@ -1,5 +1,5 @@
 {
-    "name": "Chaco",
+    "name": "Chaco (Falling)",
     "components": {
         "Sprite": {
             "texture_path": "data/sprites/NpcGuest.png",

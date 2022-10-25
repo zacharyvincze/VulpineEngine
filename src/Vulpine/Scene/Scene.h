@@ -32,18 +32,21 @@ class Scene {
     ~Scene();
 
     void Load();
-    Entity LoadEntity(const std::string& filepath);
+    Entity* LoadEntity(const std::string& filepath);
     void Unload();
 
     void Update();
     void RenderScene();
 
-    Entity CreateEntity();
+    Entity* CreateEntity();
 
     bool PollEvents(SceneEvents& event);
 
    private:
+    // Entity storage and caching
     entt::registry m_Registry;
+    std::vector<Entity*> m_entities;
+
     std::string m_SceneID;
     std::string m_SceneFilepath;
 

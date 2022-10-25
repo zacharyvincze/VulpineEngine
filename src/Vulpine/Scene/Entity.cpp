@@ -5,6 +5,11 @@
 
 namespace Vulpine {
 void Entity::ToObject(nlohmann::json& j) {
+    name = j.value<std::string>("name", "GameObject");
+
+    // TODO: Need to move this logic into something else. It's not the greatest looking. Entity should not have
+    // to handle how its components are serialized.
+
     for (auto& item : j["components"].items()) {
         if (item.key() == "Sprite") {
             std::vector<int> source_rect = item.value()["source_rect"].get<std::vector<int>>();

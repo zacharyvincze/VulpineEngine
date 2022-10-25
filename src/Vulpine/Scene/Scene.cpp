@@ -45,6 +45,9 @@ void Scene::Load() {
 void Scene::Unload() {
     VP_CORE_DEBUG("Freeing resources from scene {}", m_SceneID);
     m_TextureManager.UnloadAll();
+
+    for (Entity* entity : m_entities) { delete entity; }
+    m_entities.clear();
 }
 
 /**
@@ -72,13 +75,15 @@ bool Scene::PollEvents(SceneEvents& event) {
     return false;
 }
 
-Entity Scene::CreateEntity() {
-    Entity entity(m_Registry.create(), this);
+Entity* Scene::CreateEntity() {
+    Entity* entity = new Entity(m_Registry.create(), this);
+    m_entities.push_back(entity);
     return entity;
 }
 
-Entity Scene::LoadEntity(const std::string& filepath) {
+Entity* Scene::LoadEntity(const std::string& filepath) {
     std::ifstream in_file(filepath.c_str());
+
     if (!in_file.is_open()) {
         VP_CORE_ERROR("Unable to load object file {}", filepath);
         exit(EXIT_FAILURE);
@@ -88,12 +93,12 @@ Entity Scene::LoadEntity(const std::string& filepath) {
     in_file >> json;
     in_file.close();
 
-    Entity entity = CreateEntity();
-    entity.ToObject(json);
+    Entity* entity = CreateEntity();
+    entity->ToObject(json);
+
+    VP_CORE_DEBUG("Loaded object {}", entity->name);
 
     return entity;
-
-    VP_CORE_DEBUG("Loaded object {}", json["name"].get<std::string>());
 }
 
 }  // namespace Vulpine

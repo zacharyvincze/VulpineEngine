@@ -19,6 +19,7 @@ namespace Vulpine {
 class Entity : public Serializable {
    public:
     Entity(entt::entity handle, Scene* scene) : m_Scene(scene), m_Entity(handle) {}
+    std::string name;
 
     template <typename T, typename... Args>
     void AddComponent(Args&&... args) {

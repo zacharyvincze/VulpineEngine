@@ -15,10 +15,10 @@ int main(int argc, char** argv) {
     engine->GetSceneManager()->SetScene("default");
 
     for (int i = 0; i < 10000; i++) {
-        Vulpine::Entity entity = default_scene->LoadEntity("data/objects/chaco-fall.obj.json");
+        Vulpine::Entity* entity = default_scene->LoadEntity("data/objects/chaco-fall.obj.json");
         // entity.GetComponent<Vulpine::Components::Transform>().position = (Vulpine::Vec2){16.0f * i, 128.0f + (16 *
         // i)};
-        entity.GetComponent<Vulpine::Components::Rigidbody>().velocity =
+        entity->GetComponent<Vulpine::Components::Rigidbody>().velocity =
             (Vulpine::Vec2){RandomFloat(-1000.0f, 1000.0f), RandomFloat(-2000.0f, -250.0f)};
     }
 
