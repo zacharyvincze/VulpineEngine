@@ -6,7 +6,7 @@
             "source_rect": [32, 32, 16, 16]
         },
         "Transform": {
-            "position": [960, 720],
+            "position": [150, 250],
             "size": [32, 32]
         },
         "Rigidbody": {

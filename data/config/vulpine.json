@@ -1,7 +1,7 @@
 {
     "renderer": {
-        "width": 1920,
-        "height": 1080,
+        "width": 640,
+        "height": 360,
         "options": {
             "accelerated": true,
             "vertical-sync": true,
@@ -10,14 +10,14 @@
     },
     "window": {
         "title": "VulpineEngine",
-        "width": 1920,
-        "height": 1080,
+        "width": 640,
+        "height": 360,
         "x": 0,
         "y": 0,
         "options": {
-            "fullscreen": true,
+            "fullscreen": false,
             "show_cursor": false
         }
     },
-    "fps": 75
+    "fps": 120
 }

@@ -13,7 +13,10 @@
 #include "Vulpine/Renderer/Renderer.h"
 #include "Vulpine/Scene/Scene.h"
 #include "Vulpine/Utils/Clock.h"
+#include "Vulpine/Utils/Utils.h"
 #include "Window.h"
+
+using namespace Vulpine::Components;
 
 namespace Vulpine
 {
@@ -70,6 +73,10 @@ int Engine::Start()
                 break;
             }
         }
+
+        Vulpine::Entity *entity = current_scene->GetEntityManager().LoadEntity("data/objects/chaco-fall.obj.json");
+        entity->GetComponent<Rigidbody>().velocity =
+            (Vec2){Utils::RandomFloat(-200.0f, 200.0f), Utils::RandomFloat(-500.0f, -250.0f)};
 
         if (Input::isQuit())
             m_Running = false;
