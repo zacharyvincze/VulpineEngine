@@ -95,11 +95,17 @@ int Engine::Start()
         // Pause execution for frame capping
         double end = Clock::GetElapsed<std::chrono::seconds::period>();
 
-        // std::this_thread::sleep_for(std::chrono::duration<double, std::chrono::seconds>(
-        //     (1 / (double)m_Config->frames_per_second) - (end - start)));
-        std::this_thread::sleep_for(std::chrono::duration<double, std::chrono::seconds::period>(
-            (1.0f / (double)m_Config->frames_per_second) - (end - start)));
+        // Frame sleep duration calculations.
+        double secondsPerFrame = 1.0f / (double)m_Config->frames_per_second;
+        double currentFrameDuration = (end - start);
+        auto remainingFrameTime =
+            std::chrono::duration<double, std::chrono::seconds::period>(secondsPerFrame - currentFrameDuration);
 
+        // No system call will be called if remainingFrameTime <= 0. So we do not have to handle the case
+        // where the game is running slower than the requested frame time.
+        std::this_thread::sleep_for(remainingFrameTime);
+
+        // Keep track of the engine's current frames per second.
         end = Clock::GetElapsed<std::chrono::seconds::period>();
         double frames_per_second = 1.0f / (end - start);
     }
