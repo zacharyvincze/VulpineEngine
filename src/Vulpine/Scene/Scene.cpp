@@ -40,10 +40,8 @@ void Scene::Load()
     // Load scene sprites into memory
     for (auto &item : json["objects"].items())
     {
-        m_entityManager.LoadEntity(item.value()["path"].get<std::string>());
+        m_entityManager.LoadEntity(item.value()["path"].get<std::string>(), this);
     }
-
-    m_TextureLoader.LoadTextures(m_entityManager.GetInternalRegistry(), m_TextureManager);
 }
 
 /**
@@ -74,10 +72,10 @@ void Scene::Update()
  */
 void Scene::RenderScene()
 {
-    m_SceneRenderer.Render(m_entityManager.GetInternalRegistry(), m_Renderer, m_TextureManager);
+    m_SceneRenderer.Render(m_entityManager.GetInternalRegistry(), m_Renderer);
 }
 
-bool Scene::PollEvents(SceneEvents &event)
+bool Scene::PollEvents(SceneEvent &event)
 {
     if (!m_SceneEvents.empty())
     {
@@ -86,6 +84,23 @@ bool Scene::PollEvents(SceneEvents &event)
         return true;
     }
     return false;
+}
+
+Entity *Scene::LoadEntity(const std::string &path)
+{
+    return m_entityManager.LoadEntity(path, this);
+}
+
+Entity *Scene::CreateEntity()
+{
+    return m_entityManager.CreateEntity(this);
+}
+
+template <> void Scene::OnComponentAdded(Entity &entity, Components::Sprite &component)
+{
+    // Load and assign required texture pointer.
+    m_TextureManager.Load(component.texture_path);
+    component.texture = m_TextureManager.GetTexture(component.texture_path);
 }
 
 } // namespace Vulpine

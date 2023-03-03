@@ -2,11 +2,12 @@
 
 #include <entt/entt.hpp>
 
+#include "Vulpine/Scene/Systems/System.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine
 {
-class SpriteAnimator
+class SpriteAnimator : public System
 {
   public:
     void Update(entt::registry &registry);

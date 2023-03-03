@@ -18,10 +18,12 @@ SDL_Texture *TextureManager::GetTexture(const std::string &filepath)
 
 void TextureManager::Load(const std::string &filepath)
 {
-    // Load texture onto the GPU
+    // Check if this texture has been loaded already
     if (m_Textures.count(filepath))
     {
-        VP_CORE_WARN("Duplicate loading of texture {}", filepath);
+        // Duplicate loading of textures should not cause a warning. This is normal behavior
+        // that is handled by the TextureManager.
+        // VP_CORE_WARN("Duplicate loading of texture {}", filepath);
         return;
     }
 

@@ -19,6 +19,7 @@ struct Sprite : public Component
 {
     std::string texture_path;
     SDL_Rect source_rect;
+    SDL_Texture *texture;
 };
 
 } // namespace Components

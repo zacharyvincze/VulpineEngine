@@ -6,12 +6,21 @@
 
 namespace Vulpine
 {
+/**
+ * @brief Main engine instance.
+ *
+ */
 class Engine
 {
   public:
     Engine();
     ~Engine();
 
+    /**
+     * @brief Initializes the game engine and starts the main loop.
+     *
+     * @return 0 if the engine has initialized successfully. < 0 otherwise.
+     */
     int Start();
 
     SceneManager *GetSceneManager()
@@ -20,6 +29,12 @@ class Engine
     }
 
   private:
+    void Loop();
+    void Input();
+    void Update();
+    void Render();
+    void CapFramerate();
+
     SceneManager *m_SceneManager;
 
     bool m_Running;

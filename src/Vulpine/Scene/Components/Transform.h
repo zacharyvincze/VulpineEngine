@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.h"
-#include "Vulpine/Utils/Serializable.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine

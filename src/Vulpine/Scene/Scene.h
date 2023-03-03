@@ -7,7 +7,6 @@
 #include "Vulpine/Scene/Systems/Physics.h"
 #include "Vulpine/Scene/Systems/SceneRenderer.h"
 #include "Vulpine/Scene/Systems/SpriteAnimator.h"
-#include "Vulpine/Scene/Systems/TextureLoader.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine
@@ -19,7 +18,7 @@ namespace Vulpine
  * requests to quit and such.
  *
  */
-enum SceneEvents
+enum SceneEvent
 {
     ENGINE_QUIT
 };
@@ -43,11 +42,26 @@ class Scene
     void Update();
     void RenderScene();
 
-    bool PollEvents(SceneEvents &event);
+    bool PollEvents(SceneEvent &event);
 
-    EntityManager &GetEntityManager()
+    /**
+     * @brief Loads a serialized entity from a file into the scene.
+     *
+     * @param path The path to the file containing the entity.
+     * @return Entity* A pointer to the created entity.
+     */
+    Entity *LoadEntity(const std::string &path);
+
+    /**
+     * @brief Creates an entity for the scene.
+     *
+     * @return Entity* A pointer to the created entity.
+     */
+    Entity *CreateEntity();
+
+  private:
+    template <typename T> void OnComponentAdded(Entity &entity, T &component)
     {
-        return m_entityManager;
     }
 
   private:
@@ -55,18 +69,18 @@ class Scene
     std::string m_SceneFilepath;
 
     TextureManager m_TextureManager;
+    EntityManager m_entityManager;
 
     // Renderer context to use for this scene
     Renderer &m_Renderer;
 
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;
-    TextureLoader m_TextureLoader;
     SpriteAnimator m_SpriteAnimator;
-    EntityManager m_entityManager;
     Physics m_Physics;
 
-    std::queue<SceneEvents> m_SceneEvents;
+    // TODO: Worth making a message bus to handle these things.
+    std::queue<SceneEvent> m_SceneEvents;
 
     // Allow the Entity class to access private members of scenes.
     // This is required to gain access to the registry. Though we'd

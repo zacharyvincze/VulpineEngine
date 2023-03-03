@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+#include "Vulpine/Scene/Entity.h"
+#include "Vulpine/Scene/Scene.h"
 #include "Vulpine/Utils/Utils.h"
 
 using namespace Vulpine::Components;
@@ -17,14 +19,14 @@ EntityManager::~EntityManager()
     Clear();
 }
 
-Entity *EntityManager::CreateEntity()
+Entity *EntityManager::CreateEntity(Scene *scene)
 {
-    Entity *entity = new Entity(m_internalRegistry.create(), m_internalRegistry);
+    Entity *entity = new Entity(m_internalRegistry.create(), scene);
     m_entities.push_back(entity);
     return entity;
 }
 
-Entity *EntityManager::LoadEntity(const std::string &filepath)
+Entity *EntityManager::LoadEntity(const std::string &filepath, Scene *scene)
 {
     std::ifstream in_file(filepath.c_str());
 
@@ -38,8 +40,8 @@ Entity *EntityManager::LoadEntity(const std::string &filepath)
     in_file >> json;
     in_file.close();
 
-    Entity *entity = CreateEntity();
-    if (ParseEntity(entity, json) < 0)
+    Entity *entity = CreateEntity(scene);
+    if (DeserializeEntity(entity, json) < 0)
     {
         VP_CORE_ERROR("Failed to parse entity: {}", filepath);
     }
@@ -54,7 +56,7 @@ Entity *EntityManager::LoadEntity(const std::string &filepath)
     return entity;
 }
 
-int EntityManager::ParseEntity(Entity *entity, const nlohmann::json &j)
+int EntityManager::DeserializeEntity(Entity *entity, const nlohmann::json &j)
 {
     entity->name = j.value<std::string>("name", "GameObject");
 

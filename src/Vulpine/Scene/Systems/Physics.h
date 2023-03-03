@@ -2,11 +2,12 @@
 
 #include <entt/entt.hpp>
 
+#include "System.h"
 #include "Vulpine/vppch.h"
 
 namespace Vulpine
 {
-class Physics
+class Physics : public System
 {
   public:
     void Update(entt::registry &registry);

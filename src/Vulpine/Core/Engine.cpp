@@ -11,6 +11,7 @@
 #include "Vulpine/Core/Logger.h"
 #include "Vulpine/Managers/TextureManager.h"
 #include "Vulpine/Renderer/Renderer.h"
+#include "Vulpine/Scene/Entity.h"
 #include "Vulpine/Scene/Scene.h"
 #include "Vulpine/Utils/Clock.h"
 #include "Vulpine/Utils/Utils.h"
@@ -52,45 +53,25 @@ int Engine::Start()
 {
     m_Running = true;
     Clock::Start();
+    Loop();
+
+    return 0;
+}
+
+void Engine::Loop()
+{
     while (m_Running)
     {
         // Update delta time before updating next frame start time
         Clock::UpdateDeltaTime();
         double start = Clock::GetElapsed<std::chrono::seconds::period>();
 
-        Scene *current_scene = m_SceneManager->GetCurrentScene();
-
-        Input::PollEvents();
-        // Poll and handle any events we may have received from our current
-        // scene.
-        SceneEvents event;
-        while (current_scene->PollEvents(event))
-        {
-            switch (event)
-            {
-            case SceneEvents::ENGINE_QUIT:
-                m_Running = false;
-                break;
-            }
-        }
-
-        Vulpine::Entity *entity = current_scene->GetEntityManager().LoadEntity("data/objects/chaco-fall.obj.json");
-        entity->GetComponent<Rigidbody>().velocity =
-            (Vec2){Utils::RandomFloat(-200.0f, 200.0f), Utils::RandomFloat(-500.0f, -250.0f)};
-
-        if (Input::isQuit())
-            m_Running = false;
-        if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE))
-            m_Running = false;
-
-        current_scene->Update();
-
-        m_Renderer->SetColor(17, 30, 47, 0);
-        m_Renderer->Clear();
-
-        current_scene->RenderScene();
-
-        m_Renderer->Present();
+        // Vulpine::Entity *entity = current_scene->LoadEntity("data/objects/chaco-fall.obj.json");
+        // entity->GetComponent<Rigidbody>().velocity =
+        //     (Vec2){Utils::RandomFloat(-200.0f, 200.0f), Utils::RandomFloat(-500.0f, -250.0f)};
+        Input();
+        Update();
+        Render();
 
         // Pause execution for frame capping
         double end = Clock::GetElapsed<std::chrono::seconds::period>();
@@ -109,7 +90,44 @@ int Engine::Start()
         end = Clock::GetElapsed<std::chrono::seconds::period>();
         double frames_per_second = 1.0f / (end - start);
     }
-    return 0;
+}
+
+void Engine::Input()
+{
+    Input::PollEvents();
+
+    // Poll and handle any events we may have received from our current
+    // scene.
+    SceneEvent event;
+    while (m_SceneManager->GetCurrentScene()->PollEvents(event))
+    {
+        switch (event)
+        {
+        case SceneEvent::ENGINE_QUIT:
+            m_Running = false;
+            break;
+        }
+    }
+
+    if (Input::isQuit())
+        m_Running = false;
+    if (Input::IsKeyPressed(SDL_SCANCODE_ESCAPE))
+        m_Running = false;
+}
+
+void Engine::Update()
+{
+    m_SceneManager->GetCurrentScene()->Update();
+}
+
+void Engine::Render()
+{
+    m_Renderer->SetColor(17, 30, 47, 0);
+    m_Renderer->Clear();
+
+    m_SceneManager->GetCurrentScene()->RenderScene();
+
+    m_Renderer->Present();
 }
 
 } // namespace Vulpine

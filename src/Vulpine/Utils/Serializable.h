@@ -6,11 +6,10 @@
 
 namespace Vulpine
 {
-struct Serializable
+class Serializable
 {
-    virtual void ToObject(nlohmann::json &j)
-    {
-    }
+  public:
+    virtual void ToObject(nlohmann::json &j) = 0;
 
     // TODO: This does not need to be implemented at the moment. Commenting out to
     // avoid annoying compiler warnings like the brilliant developer I am.
