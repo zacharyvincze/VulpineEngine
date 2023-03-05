@@ -10,6 +10,8 @@
 namespace Vulpine
 {
 
+class Entity;
+
 /**
  * @brief System for rendering entities. Requires the SpriteRenderer component.
  *
@@ -17,7 +19,7 @@ namespace Vulpine
 class SceneRenderer : public System
 {
   public:
-    void Render(entt::registry &registry, Renderer &renderer);
+    void Render(entt::registry &registry, Renderer &renderer, Entity *camera);
 
   private:
 };

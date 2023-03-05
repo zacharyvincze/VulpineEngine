@@ -73,6 +73,7 @@ class Scene
 
     // Renderer context to use for this scene
     Renderer &m_Renderer;
+    Entity *m_cameraEntity = nullptr;
 
     // Required systems for each scene
     SceneRenderer m_SceneRenderer;

@@ -22,6 +22,10 @@ EntityManager::~EntityManager()
 Entity *EntityManager::CreateEntity(Scene *scene)
 {
     Entity *entity = new Entity(m_internalRegistry.create(), scene);
+
+    // All entities contain a transform component by default
+    entity->AddComponent<Transform>((Component){}, (Vec2){0, 0}, (Vec2){0, 0});
+
     m_entities.push_back(entity);
     return entity;
 }
@@ -89,14 +93,20 @@ int EntityManager::DeserializeEntity(Entity *entity, const nlohmann::json &j)
         {
             std::vector<float> position = item.value()["position"].get<std::vector<float>>();
             std::vector<float> size = item.value()["size"].get<std::vector<float>>();
-            entity->AddComponent<Transform>((Component){}, Utils::ConvertVectorToVec2(position),
-                                            Utils::ConvertVectorToVec2(size));
+            entity->AddOrReplaceComponent<Transform>((Component){}, Utils::ConvertVectorToVec2(position),
+                                                     Utils::ConvertVectorToVec2(size));
         }
 
         else if (item.key() == "Rigidbody")
         {
             std::vector<float> velocity = item.value()["velocity"].get<std::vector<float>>();
             entity->AddComponent<Rigidbody>((Component){}, Utils::ConvertVectorToVec2(velocity));
+        }
+
+        else if (item.key() == "Camera")
+        {
+            std::vector<float> zoom = item.value()["zoom"].get<std::vector<float>>();
+            entity->AddComponent<Camera>((Component){}, Utils::ConvertVectorToVec2(zoom));
         }
     }
 

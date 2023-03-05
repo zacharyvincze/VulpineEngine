@@ -72,7 +72,7 @@ void Scene::Update()
  */
 void Scene::RenderScene()
 {
-    m_SceneRenderer.Render(m_entityManager.GetInternalRegistry(), m_Renderer);
+    m_SceneRenderer.Render(m_entityManager.GetInternalRegistry(), m_Renderer, m_cameraEntity);
 }
 
 bool Scene::PollEvents(SceneEvent &event)
@@ -101,6 +101,12 @@ template <> void Scene::OnComponentAdded(Entity &entity, Components::Sprite &com
     // Load and assign required texture pointer.
     m_TextureManager.Load(component.texture_path);
     component.texture = m_TextureManager.GetTexture(component.texture_path);
+}
+
+template <> void Scene::OnComponentAdded(Entity &entity, Components::Camera &component)
+{
+    VP_CORE_DEBUG("Setting main camera to: " + entity.name);
+    m_cameraEntity = &entity;
 }
 
 } // namespace Vulpine

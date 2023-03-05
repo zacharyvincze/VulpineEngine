@@ -2,6 +2,9 @@
     "objects": [
         {
             "path": "data/objects/chaco.obj.json"
+        },
+        {
+            "path": "data/objects/camera.obj.json"
         }
     ]
 }

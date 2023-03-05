@@ -1,0 +1,21 @@
+{
+    "name": "MainCamera",
+    "components": {
+        "Camera": {
+            "zoom": [
+                3.0,
+                3.0
+            ]
+        },
+        "Transform": {
+            "position": [
+                -300,
+                -150
+            ],
+            "size": [
+                0,
+                0
+            ]
+        }
+    }
+}

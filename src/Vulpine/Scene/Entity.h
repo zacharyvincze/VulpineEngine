@@ -27,6 +27,12 @@ class Entity
         m_Scene->OnComponentAdded<T>(*this, GetComponent<T>());
     }
 
+    template <typename T, typename... Args> void AddOrReplaceComponent(Args &&...args)
+    {
+        m_Scene->m_entityManager.GetInternalRegistry().emplace_or_replace<T>(m_Entity, std::forward<Args>(args)...);
+        m_Scene->OnComponentAdded<T>(*this, GetComponent<T>());
+    }
+
     template <typename T> T &GetComponent()
     {
         return m_Scene->m_entityManager.GetInternalRegistry().get<T>(m_Entity);

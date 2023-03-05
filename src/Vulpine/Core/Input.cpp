@@ -23,7 +23,7 @@ void Input::PollEvents()
         else if (event.type == SDL_KEYUP)
         {
             m_ReleasedKeys[event.key.keysym.scancode] = true;
-            m_ReleasedKeys[event.key.keysym.scancode] = false;
+            m_HeldKeys[event.key.keysym.scancode] = false;
         }
         else if (event.type == SDL_QUIT)
         {
