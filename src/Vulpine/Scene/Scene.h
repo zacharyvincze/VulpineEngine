@@ -61,6 +61,15 @@ class Scene
      */
     void RenderScene();
 
+    /**
+     * @brief Poll events from given scene. NOTE: This function will be moved to a
+     * message bus system in the future. We don't want to be handling events in this
+     * way for long.
+     *
+     * @param event Object to store the polled event into.
+     * @return true when an event is pushed to <event>
+     * @return false when there are no remaining events to handle
+     */
     bool PollEvents(SceneEvent &event);
 
     /**
