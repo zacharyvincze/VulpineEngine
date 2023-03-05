@@ -2,6 +2,7 @@
 
 #include <fstream>
 
+#include "Vulpine/Core/Assert.h"
 #include "Vulpine/Scene/Components/Components.h"
 #include "Vulpine/Scene/Entity.h"
 #include "Vulpine/Utils/Clock.h"
@@ -19,20 +20,12 @@ Scene::~Scene()
 {
 }
 
-/**
- * @brief Load all resources required by this scene
- *
- */
 void Scene::Load()
 {
     VP_CORE_DEBUG("Loading resources for scene {}", m_SceneID);
 
     std::ifstream in_file(m_SceneFilepath);
-    if (!in_file.is_open())
-    {
-        VP_CORE_ERROR("Unable to open scene file {}", m_SceneFilepath);
-        exit(EXIT_FAILURE);
-    }
+    VP_CORE_ASSERT(in_file.is_open(), "Unable to open scene file {}", m_SceneFilepath);
 
     nlohmann::json json;
     in_file >> json;
@@ -44,10 +37,6 @@ void Scene::Load()
     }
 }
 
-/**
- * @brief Free all resources allocated by this scene.
- *
- */
 void Scene::Unload()
 {
     VP_CORE_DEBUG("Freeing resources from scene {}", m_SceneID);
@@ -55,21 +44,12 @@ void Scene::Unload()
     m_entityManager.Clear();
 }
 
-/**
- * @brief Update entities using their corresponding systems.
- *
- */
 void Scene::Update()
 {
     m_SpriteAnimator.Update(m_entityManager.GetInternalRegistry());
     m_Physics.Update(m_entityManager.GetInternalRegistry());
 }
 
-/**
- * @brief Render the scene based on the current camera.
- *
- * @param renderer The SDL Renderer context to use for rendering.
- */
 void Scene::RenderScene()
 {
     m_SceneRenderer.Render(m_entityManager.GetInternalRegistry(), m_Renderer, m_cameraEntity);

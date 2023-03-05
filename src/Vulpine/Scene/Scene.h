@@ -36,10 +36,29 @@ class Scene
     Scene(const std::string &scene_id, const std::string &scene_file, Renderer &renderer);
     ~Scene();
 
+    /**
+     * @brief Load all resources required by this scene
+     *
+     */
     void Load();
+
+    /**
+     * @brief Free all resources allocated by this scene.
+     *
+     */
     void Unload();
 
+    /**
+     * @brief Update entities using their corresponding systems.
+     *
+     */
     void Update();
+
+    /**
+     * @brief Render the scene based on the current camera.
+     *
+     * @param renderer The SDL Renderer context to use for rendering.
+     */
     void RenderScene();
 
     bool PollEvents(SceneEvent &event);

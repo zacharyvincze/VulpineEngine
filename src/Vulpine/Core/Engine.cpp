@@ -8,6 +8,7 @@
 #include "Config/EngineConfig.h"
 #include "Input.h"
 #include "VersionConfig.h"
+#include "Vulpine/Core/Assert.h"
 #include "Vulpine/Core/Logger.h"
 #include "Vulpine/Managers/TextureManager.h"
 #include "Vulpine/Renderer/Renderer.h"
@@ -27,8 +28,8 @@ Engine::Engine()
     VP_CORE_INFO("Starting VulpineEngine {}", VULPINE_ENGINE_VERSION);
 
     // Initialize SDL subsystems
-    SDL_Init(SDL_INIT_EVERYTHING);
-    IMG_Init(IMG_INIT_PNG);
+    VP_CORE_ASSERT(SDL_Init(SDL_INIT_EVERYTHING) == 0, "Failed to initialize SDL.");
+    VP_CORE_ASSERT(IMG_Init(IMG_INIT_PNG) != 0, "Failed to initialize SDL Image.");
 
     // Initialize some engine related subsystems
     m_Config = new Config::EngineConfig("data/config/vulpine.json");
